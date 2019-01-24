@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head>
+</head>
+<body>
+
+<form  th:fragment="formProcess" id="formProcessLicense" class="form-horizontal" action="#" 
+                   	th:action="@{/shift/updateLicense}" 
+                   	th:object="${formProcessLicense}" 
+                   	method="post">
+	<div class="form-group">
+			<label class="col-md-3 control-label">Person:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static" th:text="${formProcessLicense.rhPerson.fullname}"> hector.gibson31@example.com</p>
+        	</div>
+     </div>
+     <div class="form-group">
+			<label class="col-md-3 control-label">Type License:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static" th:text="${formProcessLicense.rhTypePerm.name}"> hector.gibson31@example.com</p>
+        	</div>
+     </div>
+     <div class="form-group">
+			<label class="col-md-3 control-label">Start Date:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static"  th:text="${#calendars.format(formProcessLicense.dateStart,'dd/MM/yyy')}"></p>
+        	</div>
+     </div>
+     
+  	<div class="form-group">
+			<label class="col-md-3 control-label">Finish Date:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static"  th:text="${#calendars.format(formProcessLicense.dateFinish,'dd/MM/yyy')}"></p>
+        	</div>
+     </div>
+            
+     <div class="form-group">
+			<label class="col-md-3 control-label">Reason:</label>
+        	<div class="col-md-9"><p class="form-control-static" th:text="*{reason}"></p></div>
+     </div>
+     <div class="form-group">
+			<label class="col-md-3 control-label">Files:</label>
+        	<div class="col-md-9"> 
+        		<a  th:each="rhFile : ${formProcessLicense.rhFiles}" 
+                th:text="${rhFile.nameFile}" th:href="@{'/shift/download/' + ${rhFile.id}}" ></a>
+           </div>
+     </div>
+     <div class="form-group">
+     	<label class="col-md-3 control-label">Approve?</label>
+         <div class="col-md-9">
+         	<div class="radio-inline">
+             	<label><input type="radio" value="false" 
+             		th:field="*{approved}" />NO</label>
+             </div>
+             <div class="radio-inline">
+             	<label><input type="radio" value="true" 
+                    th:field="*{approved}" />YES</label>
+             </div>
+         </div>
+     </div>
+     
+<!--      <div class="form-group" > -->
+<!--      	<label class="col-md-3 control-label">Charge type:</label> -->
+<!--          <div class="col-md-9"> -->
+<!--          	<div class="radio-inline"> -->
+<!--              	<label><input type="radio" disabled="disabled" -->
+<!--                   	value="false" th:field="*{toPay}"/>COMPENSATE</label> -->
+<!--              </div> -->
+<!--              <div class="radio-inline"> -->
+<!--              	<label><input type="radio" disabled="disabled" -->
+<!--                     value="true" th:field="*{toPay}"/>TO PAY</label> -->
+<!--              </div> -->
+             
+<!--          </div> -->
+<!--      </div> -->
+     
+     <div class="form-group">
+    	 	<label class="col-md-3 control-label">Response:</label>
+         <div class="col-md-9">
+            <textarea 
+            	placeholder="Detail the reason." rows="5"
+              class="form-control"
+              th:field="*{response}"></textarea>
+         </div>
+    	</div>
+     <div class="form-group">
+ 	 	<div class="col-md-3">	</div>
+         <div class="col-md-9">
+         	<button type="submit" class="btn btn-primary">Submit</button>
+       	</div>
+     </div>
+</form>
+
+<form th:fragment="newForm" id="formLicense" class="form-horizontal"
+		action="#" th:action="@{/shift/newLicense}"
+		th:object="${formLicense}" method="post">
+		<div th:if="${error} == false" class="alert alert-success alert-dismissable fade in" >
+		  <button type="button" data-dismiss="alert" aria-hidden="true"
+           class="close">&times;</button>
+	       <strong>Well done!</strong> You successfully registered a new license. <br/>
+	       You can create a new one or just close it. <br/>
+	       <a href="#" onclick="reloadPage()">Click here to check the new item.</a>
+		</div>
+		<div th:if="${error} == true"  class="alert alert-danger alert-dismissable fade in">
+			<button type="button" data-dismiss="alert" aria-hidden="true"
+           class="close">&times;</button>
+	      	<strong>Oh snap!</strong> We had problems registering the license. 
+	     	Message: ${errorMessage}.
+		</div>
+		<div id="messageTypeLic"></div>
+		<div class="form-group">
+           	<label class="col-md-3 control-label">Type License</label>
+        	<div class="col-md-9">
+            <select id="typeLic" class="form-control input-medium" th:field="*{rhTypePerm.id}" >
+            	<option value="0">-- SELECT AN OPTION --</option>
+			  	<option th:each="license : ${listLicense}" 
+			          th:value="${license.id}" 
+			          th:text="${license.name}">Staff 1</option>
+			</select>
+			
+       		</div>
+       	</div>	
+		<div class="form-group">
+			<label class="col-md-3 control-label">Start Date</label>
+			<div class="col-md-9">
+				<input id="datepicker" type="text" placeholder="Pick a date"
+					class="form-control input-medium" th:field="*{dateStart}" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">Finish Date</label>
+			<div class="col-md-9">
+				<input id="datepicker2" type="text" placeholder="Pick a date"
+					class="form-control input-medium" th:field="*{dateFinish}" />
+			</div>
+<!-- 			<div class="col-md-9"> -->
+<!-- 				<input type="text" th:field="*{durationHour}" value="1" id="durationHourLic"  -->
+<!-- 				placeholder="1"  class="form-control input-mini pull-left" readonly="readonly"/> -->
+<!-- 				<div id="sliderLicense" data-slider-min="1" data-slider-max="15"  -->
+<!-- 				data-slider-step="1" data-slider-value="1" class="pull-left slider-position"></div> -->
+<!-- 			</div> -->
+		</div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">Attach Files</label>
+			<div class="col-md-9">
+				<input id="inputFiles" th:field="*{files}" type="file" multiple="multiple" placeholder="Select files..."
+				data-show-preview="false" data-show-upload="false" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-3 control-label">Reason</label>
+			<div class="col-md-9">
+				<textarea placeholder="Detail the reason." rows="5"
+					class="form-control" th:field="*{reason}"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+ 	 	<div class="col-md-3">	</div>
+         <div class="col-md-9">
+         	<button type="submit" class="btn btn-primary">Submit</button>
+       	</div>
+     </div>
+	</form>
+
+</body>
+</html>

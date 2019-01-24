@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head >
+</head>
+<body>
+<div th:fragment="mainTable">
+	<table id="datatables" class="table table-hover table-bordered mbn">
+    	<thead class="bg-default">
+            <tr>
+             	<th class="sorting_disabled"></th>
+                <th>Staff</th>
+                <th>Start Date</th>
+                <th>Finish Date</th>
+                <th>Manager</th>
+                <th>Charge</th>
+                <th>Status</th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr th:each="rhScheduleJob : ${listScheduleJob}" th:id="${rhScheduleJob.id}">
+            	<td class="details-control"></td>
+                <td th:text="${rhScheduleJob.rhPerson.fullname}">text 1</td>
+                <td th:text="${#calendars.format(rhScheduleJob.dateStart,'dd/MM/yyy HH:mm')}">text 1</td>
+                <td th:text="${#calendars.format(rhScheduleJob.dateFinish,'dd/MM/yyy HH:mm')}">text 1</td>
+                <td th:text="${rhScheduleJob.rhPersonMng.fullname}">text 1</td>
+                <td th:text="${rhScheduleJob.rhTypeCharge != null} ? ${rhScheduleJob.rhTypeCharge.name} : '-'">text 1</td>
+                <td th:text="${rhScheduleJob.rhStatus != null} ? ${rhScheduleJob.rhStatus.name} : '-'">text 1</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="processTable">
+	<table id="datatables" class="table table-hover mbn">
+    	<thead class="bg-default">
+            <tr>
+             	<th></th>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>Duration</th>
+                <th>Manager</th>
+                <th>Status</th>
+                 <th sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">
+                	Action
+                </th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr th:each="rhScheduleJob : ${listScheduleJob}" th:id="${rhScheduleJob.id}">
+            	<td class="details-control"></td>
+                <td th:text="${rhScheduleJob.rhPerson.fullname}">text 1</td>
+                <td th:text="${#calendars.format(rhScheduleJob.dateStart,'dd/MM/yyy HH:mm')}">text 1</td>
+                <td th:text="${rhScheduleJob.duration} + ' min.'">text 1</td>
+                <td th:text="${rhScheduleJob.rhPersonMng.fullname}">text 1</td>
+                <td th:text="${rhScheduleJob.rhStatus != null} ? ${rhScheduleJob.rhStatus.name} : '-'">text 1</td>
+                <td sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">
+                	<button type="button" class="btn btn-primary btn-xs" 
+                	th:onclick="'javascript:processRequest(\'' + ${rhScheduleJob.id} + '\');'">Process</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

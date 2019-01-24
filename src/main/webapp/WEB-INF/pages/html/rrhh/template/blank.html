@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'extraHour.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+<div class="page-wrapper">
+
+<!--BEGIN HEADER-->
+<header th:replace="headerTemplate :: mainHeader"> </header>
+<!--END HEADER-->
+
+<!--BEGIN WRAPPER-->
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!--BEGIN SIDEBAR-->
+	<aside th:replace="menuTemplate :: mainMenuBar"></aside>
+	<!--END SIDERBAR-->
+
+	<!--BEGIN CONTENT-->
+	<div class="content">
+	<section class="content-header">
+		<h1 class="pull-left">
+			Extra hour regulation. 
+			<small>Register and process your extra work...</small>
+		</h1>
+		<div class="pull-right">
+			<ol class="breadcrumb">
+				<li><a href="#">Rrhh</a></li>
+				<li class="active">Regulation</li>
+			</ol>
+		</div>
+	</section>
+	<section class="main-content">
+		<div class="panel">
+		<div class="panel-body">
+		<div class="row">
+		<div class="col-md-12">
+			<div class="tabbable-custom">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#tab_5_1" data-toggle="tab">Request</a>
+					</li>
+					<li>
+						<a href="#tab_5_2" data-toggle="tab">Report </a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab_5_1" 
+						class="tab-pane active">
+					</div>
+					<div id="tab_5_2" class="tab-pane">
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		</div>
+	</section>
+	</div>
+	<!--END CONTENT-->
+</div>
+<!--END WRAPPER-->
+</div>
+</div>
+<div th:include="scriptTemplate :: rrhhScripts(extraHour.js)"></div>
+</body>
+</html>

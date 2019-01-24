@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+    <div class="page-wrapper">
+    	<!--BEGIN HEADER-->
+       	<header th:replace="headerTemplate :: mainHeader" >
+       	</header>
+        <!--END HEADER-->
+         
+        <!--END HORIZONTAL SIDEBAR--><!--BEGIN WRAPPER-->
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+        	<!--BEGIN SIDEBAR-->
+          <aside  th:replace="menuTemplate :: mainMenuBar">
+           </aside>
+            <!--END SIDERBAR-->
+            
+            <!--BEGIN CONTENT-->
+            <div class="content">
+<!--                 <section class="content-header"> -->
+<!--                     <h1 class="pull-left">Schedule job registration. -->
+<!--                         <small>Schedule job registration...</small> -->
+<!--                     </h1> -->
+<!--                     <div class="pull-right"> -->
+<!--                         <ol class="breadcrumb"> -->
+<!--                             <li><a href="#">Rrhh</a></li> -->
+<!--                             <li class="active">Schedule job </li> -->
+<!--                         </ol> -->
+<!--                     </div> -->
+<!--                 </section> -->
+                <section class="main-content">
+                
+                <div class="panel">
+                <div class="panel-body">
+	                <div class="row">
+		             <div class="col-md-12">
+		             	 <a href="#modal-responsive" 
+			             		data-toggle="modal"
+			                 	class="btn btn-primary btn-sm">New Schedule Job</a>
+		             </div>
+		             </div>
+		             <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="tabbable-custom">
+                               <ul class="nav nav-tabs">
+                                   <li class="active"><a href="#tab_5_1" data-toggle="tab">Register Schedule job</a></li>
+<!--                                    <li ><a href="#tab_5_2" data-toggle="tab">Report </a></li> -->
+                               </ul>
+                               <div class="tab-content">
+                                   <div id="tab_5_1" class="tab-pane active" >
+                                   <div class="row" th:if="${shiftScheJob.validate == 1}">
+	                                   	<div class="col-md-8">
+	                                   		<div class="alert alert-info alert-dismissable fade in">
+		                                        <strong>Sorry!</strong> You don't have any Schedule Job for Today or You already 
+		                                        registered your Schedule Job for today...
+		                                    </div>
+	                                 	</div>
+	                               </div>
+	                               <div class="row" th:if="${shiftScheJob.validate == 3}">
+	                                   	<div class="col-md-8">
+	                                   		<div class="alert alert-warning alert-dismissable fade in">
+		                                         <button type="button" data-dismiss="alert" aria-hidden="true"
+                                                class="close">&times;</button>
+                                        		<strong>Warning!</strong> You can start at least one hour before work...
+		                                    </div>
+		                                    
+	                                 	</div>
+	                               </div>
+	                               <div class="row" th:if="${shiftScheJob.validate != 1}">
+	                                   	<div class="col-md-6">
+	                                   		<p>Today's schedule is From 
+	                                   		<strong th:text="${#calendars.format(shiftScheJob.dateStart,'HH:mm')}"></strong> To
+	                                   		<strong th:text="${#calendars.format(shiftScheJob.dateFinish,'HH:mm')}"></strong> </p>
+	                                   		
+	                                   		<p class="text-center">
+	                                            <button type="button" class="btn btn-primary btn-lg"
+	                                            th:if="${shiftScheJob.validate == 4}">Start</button>
+	                                            <button type="button" disabled="disabled" class="btn btn-default btn-lg"
+	                                             th:if="${shiftScheJob.validate != 4}">Start</button>
+	                                            <button type="button" class="btn btn-primary btn-lg"
+	                                            th:if="${shiftScheJob.validate == 5}">Finish</button>
+	                                            <button type="button" disabled="disabled" class="btn btn-default btn-lg"
+	                                            th:if="${shiftScheJob.validate != 5}">Finish</button>
+	                                        </p>
+	                                      </div>
+	                                   	<div class="col-md-6">
+	                                   		<p class="clock">Current Time <strong class="plsm" id="hours2"> </strong>
+	                                   						<strong id="point">:</strong>
+	                                   						<strong id="min2"></strong>
+	                                   						<strong id="point">:</strong>
+	                                   						<strong id="sec2"> </strong>
+	                                   		</p>
+	                                   		<ul class="list-inline clock text-left">
+		                                        <li id="chours2" class="fw700 fz30 ">00</li>
+		                                        <li id="point" class="fw700 fz30 ">:</li>
+		                                        <li id="cmin2" class="fw700 fz30">00</li>
+		                                        <li >Activity time.</li>
+		                                    </ul>
+	                                   	</div>
+                                   </div>
+	                               </div>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                     <div class="row">
+		             <div class="col-md-12">
+		             <div class="panel panel-default">
+		                <div class="panel-heading">
+		                <h3 class="panel-title">Report panel. </h3>
+		                <div class="actions mtn">
+		                    <div class="btn-group btn-group-xs">
+		                        <button type="button" class="btn btn-primary">Actions to show</button>
+		                        <button type="button" data-toggle="dropdown"
+		                                class="btn btn-primary dropdown-toggle">
+		                                <span class="caret"></span>
+		                                <span class="sr-only">Toggle Dropdown</span>
+		                        </button>
+		                        <ul role="menu" class="dropdown-menu pull-right">
+		                            <li><a href="#" onclick="updateTable(1)">My pending requests</a></li>
+		                            <li sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">
+		                            	<a href="#" onclick="updateTable(2)">Requests to process</a></li>
+		                            <li><a href="#" onclick="updateTable(3)">Latest Requests(35 days)</a></li>
+		                            <li class="divider"></li>
+		                            <li><a href="#" onclick="updateTable(4)">Search</a></li>
+		                        </ul>
+		                    </div>
+		                </div>
+		                </div>
+		                <div id="divPanelBodyEH" class="panel-body" 
+		                	th:include="html/rrhh/schedJob/tables :: mainTable">
+		               
+		                </div>
+		             </div>
+		             </div>
+		             </div>
+                </div>
+                </div>
+                </section>
+            </div>
+            <!--END CONTENT-->	
+        </div>
+        <!--END WRAPPER-->
+        </div>
+</div>
+
+<!--Modal Responsive-->
+<div id="modal-responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Schedule job</h4></div>
+            <div class="modal-body" id="detailScheduleJob">
+                <div class="row">
+                    <div class="col-md-12"> 
+                    <form id="formScheduleJob" class="form-horizontal" action="#" 
+                        	th:action="@{/scheduleJob/create}" 
+                        	th:object="${formScheduleJob}" 
+                        	method="post">
+                        	
+						<div class="form-group">
+                   			<label class="col-md-3 control-label">Staff</label>
+                           	<div class="col-md-9">
+                            <select class="form-control input-medium" th:field="*{rhPerson.id}">
+							  <option th:each="person : ${listRhPersons}" 
+							          th:value="${person.id}" 
+							          th:text="${person.fullname}">Staff 1</option>
+							</select>
+                        	</div>
+                        </div>
+                        
+                       	<div class="form-group">
+                   			<label class="col-md-3 control-label">Start Date/Time</label>
+                           	<div class="col-md-9">
+                            <input id="datepicker" type="text"
+                            		placeholder="Pick a date"
+                                   class="form-control input-medium"
+                                   th:field="*{dateStart}"/>
+                        	</div>
+                        </div>
+                            
+                       	 <div class="form-group">
+                       	 	<label class="col-md-3 control-label">Finish Date/Time</label>
+                            <div class="col-md-9">
+                            <input id="datepicker2" type="text" 
+                            		placeholder="Pick a date"
+                               	class="form-control input-medium" 
+                               	th:field="*{dateFinish}"/>
+                          	</div>
+                         </div>
+                        <div class="form-group" >
+					     	<label class="col-md-3 control-label">Charge type:</label>
+					         <div class="col-md-9">
+					         	<div class="radio-inline">
+					             	<label><input type="radio" 
+					                  	value="false" th:field="*{toPay}"/>COMPENSATE</label>
+					             </div>
+					             <div class="radio-inline">
+					             	<label><input type="radio" 
+					                    value="true" th:field="*{toPay}"/>TO PAY</label>
+					             </div>
+					             
+					         </div>
+					     </div>
+					     
+                       	<div class="form-group">
+                       	 	<label class="col-md-3 control-label">
+                       	 	Reason</label>
+                               <div class="col-md-9">
+                               <textarea 
+                               	placeholder="Detail the reason." rows="5"
+                                 class="form-control"
+                                 th:field="*{reason}"></textarea>
+                             	</div>
+                            </div>
+                        <div class="form-group">
+                    	 	<div class="col-md-3">	</div>
+                            <div class="col-md-9">
+                            	<button type="submit" class="btn btn-primary">Submit</button>
+                          	</div>
+                        </div>
+					</form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn white">Close</button>
+<!--                 <button type="button" class="btn btn-primary">Submit</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+	<div th:include="scriptTemplate :: rrhhScripts(schedJob.js)"></div>
+	<script th:inline="javascript">
+	//<![CDATA[
+	$(document).ready(function() {
+// 		alert("test javascript");
+	// Create two variable with the names of the months and days in an array
+	var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+	var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+	
+	var newDate = new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]);
+	
+	newDate.setDate(newDate.getDate());      
+	var seconds = newDate.getSeconds();
+	var minutes = newDate.getMinutes();
+	var hours = newDate.getHours();
+
+	setInterval( function() {
+		$("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+		$("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+		$("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+		$('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+		seconds++;
+		if (seconds == 60) {
+			seconds = 0;
+			minutes++;
+			if (minutes == 60) {
+				minutes = 0;
+				hours++;
+				if (hours == 24) {
+					hours= 0;
+					newDate.setDate(newDate.getDate() + 1);
+				}
+			}
+		}
+	},1000);
+	
+	setInterval( function() {
+		$("#sec2").html(( seconds < 10 ? "0" : "" ) + seconds);
+		$("#min2").html(( minutes < 10 ? "0" : "" ) + minutes);
+		$("#hours2").html(( hours < 10 ? "0" : "" ) + hours);
+		$('#Date2').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+		seconds++;
+		if (seconds == 60) {
+			seconds = 0;
+			minutes++;
+			if (minutes == 60) {
+				minutes = 0;
+				hours++;
+				if (hours == 24) {
+					hours= 0;
+					newDate.setDate(newDate.getDate() + 1);
+				}
+			}
+		}
+	},1000);
+});
+	//]]>
+</script>
+<script th:inline="javascript" th:if="${shiftScheJob.validate == 5}">
+	//<![CDATA[
+	$(document).ready(function() {
+		var startDate2 = new Date([[${#calendars.format(shiftScheJob.dateStart, 'yyyy/MM/dd HH:mm:ss')}]]);
+		startDate.setDate(startDate.getDate());      
+		var cseconds2 =  Math.floor(((newDate - startDate) % 60000 ) / 1000);
+		var cminutes2 = Math.floor(((newDate - startDate) % 3600000)/ 60000);
+		var chours2 =  Math.floor((newDate - startDate) / 3600000);
+		
+		setInterval( function() {
+			$("#cmin2").html(( cminutes2 < 10 ? "0" : "" ) + cminutes2);
+			$("#chours2").html(( chours2 < 10 ? "0" : "" ) + chours2);
+			cseconds2++;
+			if (cseconds2 == 60) {
+				cseconds2 = 0;
+				cminutes2++;
+				if (cminutes2 == 60) {
+					cminutes2 = 0;
+					chours2++;
+				}
+			}
+		},1000);
+	});
+	//]]>
+</script>
+</body>
+</html>

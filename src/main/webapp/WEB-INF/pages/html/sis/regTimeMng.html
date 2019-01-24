@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+<div class="page-wrapper">
+
+<!--BEGIN HEADER-->
+<header th:replace="headerTemplate :: mainHeader"> </header>
+<!--END HEADER-->
+
+<!--BEGIN WRAPPER-->
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!--BEGIN SIDEBAR-->
+	<aside th:replace="menuTemplate :: mainMenuBar"></aside>
+	<!--END SIDERBAR-->
+
+	<!--BEGIN CONTENT-->
+	<div class="content">
+
+	<section class="main-content">
+		<div class="row">
+	        
+
+		<div class="row">
+			<div class="col-md-12">
+			<div class="panel white">
+                <div class="panel-heading"><h3 class="panel-title">Events to manage.</h3>
+                    <div class="actions">
+                            <a href="javascript:;" onclick="togglePanel(this,'#panel-body-session')" class="test "><i class="ion-chevron-down"></i></a>
+<!--                             <a href="javascript:;" onclick="updatePanelSession('#panel-body-session')"><i class="ion-refresh"></i></a> -->
+                    </div>
+                </div>
+                <div class="panel-body bg-white" id="panel-body-session">
+					<div class="bg-white table-responsive" id="divTabShift" 
+	                	th:include="html/rrhh/shift/tables :: RegTimeManagTable">
+	                	</div>
+                </div>
+            </div>
+            </div>
+		</div>
+		
+<!-- 		<div class="row"> -->
+<!--              <div class="col-md-12"> -->
+<!--               <div class="tabbable-custom"> -->
+<!--                 <ul class="nav nav-tabs"> -->
+<!--                     <li class="active"><a href="#tab_1" data-toggle="tab">Pending events</a></li> -->
+<!--                     <li><a href="#tab_2" data-toggle="tab">Last 35 days events </a></li> -->
+<!--                 </ul> -->
+<!--                 <div class="tab-content"> -->
+<!--                     <div id="tab_1" class="tab-pane active"> -->
+<!--                     ${plannedSession.size} -->
+                    
+<!--                      	<div class="bg-white table-responsive" id="divTabShift"  -->
+<!-- 	                	th:include="html/rrhh/shift/tables :: RegTimeManagTable"> -->
+<!-- 	                	</div> -->
+<!--                     </div> -->
+<!--                     <div id="tab_2" class="tab-pane"> -->
+<!-- 		 				<div class="bg-white table-responsive" id="divTabShiftHistory" -->
+<!-- 		                	th:include="html/rrhh/shift/tables :: historyTable"> -->
+<!-- 		                </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+             
+
+<!--              </div> -->
+<!--    		</div> -->
+   	</div>
+
+	</section>
+	</div>
+	<!--END CONTENT-->
+</div>
+
+
+
+<!--END WRAPPER-->
+
+<!--  <div th:replace="modalTemplate :: modalTimeUpdate"></div> -->
+ 
+ <div id="modalTimeUpdate" role="dialog" aria-labelledby="myModalLabel"
+    data-backdrop="static" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Information Content</h4></div>
+          <form action="../register/registerFinish" method="post">      
+            <div class="modal-body">
+                <div class="row">
+                
+               
+				<div class="col-md-12" id="modalShiftRUM" th:fragment="rhshiftRUM"> 
+                   		<table th:each="shift : ${rhshift}" class="table">
+                   		 <tr>
+                   		  <td>Type : </td>
+                   		  <td>
+                   		    <input type="hidden" name="idRhshift" th:value="${shift.id}"/>
+                   		    <span th:text="${shift.id}" />
+                   		  </td>                   		  
+                   		 </tr>
+                   		 <tr>
+                   		  <td>Session : </td><td th:text="${shift.rhStatus.name}"></td>                   		  
+                   		 </tr>
+                   		 <tr>
+                   		  <td>Name : </td><td th:text="${shift.rhPerson.fullname}"></td>                   		  
+                   		 </tr>
+                   		 <tr>
+                   		  <td>Date : </td><td th:text="${#calendars.format(shift.dateStart,'yyy/MM/dd')}"></td>                   		  
+                   		 </tr>
+                   		 <tr>
+                   		  <td>HourStart : </td>
+                   		  <td>
+                   		  <div class='input-group date'>
+                   		    <input name="dStart" id="dStart" th:if="${shift.dateStartShift!=null}" th:value="${#calendars.format(shift.dateStartShift,'HH:mm:ss')}" disabled="disabled" class="form-control"/>
+                   		    <input name="dStart" id="dStart" th:if="${shift.dateStartShift==null}" class="form-control"/>
+						  </div>  
+					        <script th:if="${shift.dateStartShift==null}" type="text/javascript">
+					            $(function () {
+					                $('#dStart').datetimepicker({
+					                	format: 'HH:mm:ss'                	
+					                });
+					            });
+					        </script>
+
+                   		  </td>                   		  
+                   		 </tr>
+                   		 <tr>
+                   		  <td>HourEnd : </td>
+                   		  <td>
+                   		   <div class='input-group date'>
+                   		    <input name="dEnd" id="dEnd" th:if="${shift.dateFinishShift!=null}" th:value="${#calendars.format(shift.dateFinishShift,'HH:mm:ss')}" disabled="disabled" class="form-control"/>
+                   		    <input name="dEnd" id="dEnd" th:if="${shift.dateStartShift==null}" disabled="disabled" class="form-control"/>
+                   		    <input name="dEnd" id="dEnd" th:if="${shift.dateFinishShift==null and shift.dateStartShift!=null}" class="form-control"/>
+                   		   </div>
+                   		    <script th:if="${shift.dateFinishShift==null and shift.dateStartShift!=null}" type="text/javascript">
+					            $(function () {
+					                $('#dEnd').datetimepicker({
+					                	format: 'HH:mm:ss'                	
+					                });
+					            });
+					        </script>
+                   		  </td>
+                   		   
+                   		 </tr>
+                   		</table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            	<button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" data-dismiss="modal" class="btn white">Cancelar</button>
+            </div>
+            </form>
+        </div>
+	    </div>
+	</div>
+ 
+ 
+<!--  <div th:replace="html/rrhh/extraHour/process :: newExtra"></div> -->
+<!--  <div th:replace="html/rrhh/permission/process :: newPermission"></div> -->
+<!--  <div th:replace="html/rrhh/license/process :: newLicense"></div> -->
+<!--  <div th:replace="html/rrhh/schedJob/process :: newJob"></div> -->
+<!--  <div th:replace="html/rrhh/abroadJob/process :: newAbroadJob"></div> -->
+<!--  <div th:replace="html/rrhh/commission/process :: newCommission"></div> -->
+ 
+<!--  <div th:replace="html/rrhh/extraHour/process :: processExtra"></div> -->
+<!--  <div th:replace="html/rrhh/permission/process :: processPermission"></div> -->
+<!--  <div th:replace="html/rrhh/license/process :: processLicense"></div> -->
+<!--  <div th:replace="html/rrhh/scale/process :: modalProcess"></div> -->
+<!--  <div th:replace="html/rrhh/schedJob/process :: modalProcess"></div> -->
+<!--  <div th:replace="html/rrhh/scale/process :: processAlert"></div> -->
+<!--  <div th:replace="html/rrhh/shift/process :: modalInfo"></div> -->
+</div>
+</div>
+
+<div th:replace="scriptTemplate :: rrhhScripts(shift.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(scale.js)"></div>
+<script>
+//             $(document).ready(function(){
+//                 $('#datetimepicker1').datetimepicker({
+//                 	format: 'LT h'
+//                 });
+//             });
+        </script>
+ 
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head >
+</head>
+<body>
+<div th:fragment="detailDl">
+	<h3 class="text-uppercase text-success">
+		<strong >Detail Extra Hour</strong>
+	</h3>
+	
+	<dl class="dl-horizontal">
+		<dt>Id</dt>
+		<dd th:text="${rhExtraHour.id}"></dd>
+		<dt>Start date/time</dt>
+		<dd th:text="${#calendars.format(rhExtraHour.dateStart,'dd/MM/yyy HH:mm')}"></dd>
+		<dt>Finish date/time</dt>
+		<dd th:text="${#calendars.format(rhExtraHour.dateFinish,'dd/MM/yyy HH:mm')}"></dd>
+		<dt>Duration</dt>
+		<dd th:text="${rhExtraHour.duration} + ' min.'"></dd>
+		<dt>Manager</dt>
+		<dd th:text="${rhExtraHour.rhPersonMng.fullname}"></dd>
+		<dt>Status</dt>
+		<dd th:text="${rhExtraHour.rhStatus.name}"></dd>
+		<dt>Reason</dt>
+		<dd th:text="${rhExtraHour.reason}"></dd>
+  	</dl>
+  	
+</div>
+
+<div th:fragment="detailTable">
+<div class="col-md-10">
+	<table class="table table-hover mbn">
+		<tbody>
+            <tr>
+             	<td class="col-md-3"><strong>Request date/time</strong></td>
+                <td th:text="${#calendars.format(shift.dateReg,'dd/MM/yyy HH:mm')}"></td>
+            </tr>
+            <tr>
+             	<td >
+             		<strong>Start date/time</strong></td>
+                <td th:text="${#calendars.format(shift.dateStart,'dd/MM/yyy HH:mm')}"></td>
+            </tr>
+            <tr>
+             	<td>
+             		<strong>Finish date/time</strong></td>
+                <td th:text="${#calendars.format(shift.dateFinish,'dd/MM/yyy HH:mm')}"></td>
+            </tr>
+            <tr>
+             	<td>
+             		<strong>Reason</strong></td>
+                <td th:text="${shift.reason}"></td>
+            </tr>
+            <tr>
+             	<td>
+             		<strong>Status</strong></td>
+                <td th:text="${shift.rhStatus.name}"></td>
+            </tr>
+             <tr>
+             	<td>
+             		<strong>Charge type</strong></td>
+                <td></td>
+            </tr>
+             <tr>
+             	<td>
+             		<strong>Ratio</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+             	<td>
+             		<strong>Comment</strong></td>
+                <td th:text="${shift.comment}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<div th:fragment="detailInfo">
+<table id="datatables" class="table table-hover table-bordered mbn">
+    	<thead class="bg-default">
+            <tr>
+             	<th>Session</th>
+                <th>Type</th>
+                <th>Start Date</th>
+                <th>Finish Date</th>
+                <th>Rate</th>
+                <th>Total</th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr th:each="shiftDetail : ${listShiftsDetail}" th:id="${shiftDetail.id}">
+            	<td th:text="${shiftDetail.rhShift.rhType.name}">text 1</td>
+                <td th:text="${shiftDetail.rhType != null} ? ${shiftDetail.rhType.name} : '-'">text 1</td>
+                <td th:text="${#calendars.format(shiftDetail.timeStart,'dd/MM HH:mm')}">text 1</td>
+                <td th:text="${#calendars.format(shiftDetail.timeFinish,'dd/MM HH:mm')}">text 1</td>
+                <td th:text="${shiftDetail.rhTypeRate.name}">text 1</td>
+                <td th:text="${shiftDetail.totalRate}">text 1</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<th:block th:fragment="detailInfo2(nameShift)">
+<table class="table table-hover mbn" >
+   	<thead class="bg-default">
+	     <tr>
+	      	<th>Session</th>
+	         <th>Type</th>
+	         <th>Start Date</th>
+	         <th>Finish Date</th>
+	         <th>Rate</th>
+	         <th>Total</th>
+	     </tr>
+	</thead>
+	<tbody>
+	 	<tr th:each="shiftDetail : ${nameShift}" th:id="${shiftDetail.id}">
+        	<td th:text="${shiftDetail.rhShift.rhType.name}">text 1</td>
+            <td th:text="${shiftDetail.rhType != null} ? ${shiftDetail.rhType.name} : '-'">text 1</td>
+            <td th:text="${#calendars.format(shiftDetail.timeStart,'dd/MM HH:mm')}">text 1</td>
+            <td th:text="${#calendars.format(shiftDetail.timeFinish,'dd/MM HH:mm')}">text 1</td>
+            <td th:text="${shiftDetail.rhTypeRate.name}">text 1</td>
+            <td th:text="${shiftDetail.totalRate}">text 1</td>
+        </tr>
+    </tbody>
+ </table>
+</th:block>
+
+<div th:fragment="detailShift">
+	<table class="table table-hover mbn">
+		<tbody>
+			<tr th:if="${rhShift.rhType != null}">
+             	<td class="col-md-3"><strong>Type session</strong></td>
+                <td th:text="${rhShift.rhType.name}"></td>
+            </tr>
+            <tr th:if="${rhShift.rhStatus != null}">
+             	<td><strong>Status</strong></td>
+                <td th:text="${rhShift.rhStatus.name}"></td>
+            </tr>
+            <tr th:if="${rhShift.rhPerson != null}">
+             	<td class="col-md-3"><strong>Staff</strong></td>
+                <td th:text="${rhShift.rhPerson.fullname}"></td>
+            </tr>
+            <tr th:if="${rhShift.rhPersonMng != null}">
+             	<td class="col-md-3"><strong>Manager</strong></td>
+                <td th:text="${rhShift.rhPersonMng.fullname}"></td>
+            </tr>
+            <tr th:if="${rhShift.dateStart != null AND rhShift.dateFinish != null}">
+             	<td><strong>Planned schedule</strong></td>
+                <td th:text="${'From ' + #calendars.format(rhShift.dateStart,'dd/MM/yyyy HH:mm') + 
+                		'  To  ' + #calendars.format(rhShift.dateFinish,'dd/MM/yyyy HH:mm')}"></td>
+            </tr>
+             <tr th:if="${rhShift.dateStartShift != null}">
+             	<td><strong>Start date/time</strong></td>
+                <td th:text="${#calendars.format(rhShift.dateStartShift,'dd/MM/yyyy HH:mm')}"></td>
+            </tr>
+            <tr th:if="${rhShift.dateFinishShift != null}">
+             	<td><strong>Finish date/time</strong></td>
+                <td th:text="${#calendars.format(rhShift.dateFinishShift,'dd/MM/yyyy HH:mm')}"></td>
+            </tr>
+             <tr th:if="${rhShift.rhShiftPeriod != null}">
+             	<td><strong>Period</strong></td>
+                <td th:text="${rhShift.rhShiftPeriod.label}">
+                </td>
+            </tr>
+            <tr th:if="${rhShift.rhTypePerm != null}">
+             	<td><strong>Sub type</strong></td>
+                <td th:text="${rhShift.rhTypePerm.name}"></td>
+            </tr>
+            <tr th:if="${rhShift.sisRegion != null}">
+             	<td><strong>Region</strong></td>
+                <td th:text="${rhShift.sisRegion.name}"></td>
+            </tr> 
+            <tr th:if="${rhShift.rhTypeCharge != null}">
+             	<td><strong>Charge Type</strong></td>
+                <td th:text="${rhShift.rhTypeCharge.name}"></td>
+            </tr>
+            <tr th:if="${rhShift.reason != null}">
+             	<td><strong>Reason</strong></td>
+                <td th:text="${rhShift.reason}"></td>
+            </tr>
+            
+             <tr th:if="${rhShift.rhFiles != null}">
+             	<td><strong>File</strong></td>
+                <td>
+                	<a  th:each="rhFile : ${rhShift.rhFiles}" 
+                		th:text="${rhFile.nameFile}" th:href="@{'/shift/download/' + ${rhFile.id}}" ></a>
+                </td>
+            </tr>
+            <tr th:if="${rhShift.rhShiftDetails != null}">
+             	<td> <strong>Process Detail</strong></td>
+             	<td >
+             		<table class="table table-hover mbn" >
+					   	<thead class="bg-default">
+						     <tr>
+						      	<th>Session</th>
+						         <th>Type</th>
+						         <th>Start Date</th>
+						         <th>Finish Date</th>
+						         <th>Rate</th>
+						         <th>Total</th>
+						     </tr>
+						</thead>
+						<tbody>
+						 	<tr th:each="shiftDetail : ${rhShift.rhShiftDetails }" th:id="${shiftDetail.id}">
+					        	<td th:text="${shiftDetail.rhShift.rhType.name}">text 1</td>
+					            <td th:text="${shiftDetail.rhType != null} ? ${shiftDetail.rhType.name} : '-'">text 1</td>
+					            <td th:text="${#calendars.format(shiftDetail.timeStart,'dd/MM HH:mm')}">text 1</td>
+					            <td th:text="${#calendars.format(shiftDetail.timeFinish,'dd/MM HH:mm')}">text 1</td>
+					            <td th:text="${shiftDetail.rhTypeRate.name}">text 1</td>
+					            <td th:text="${shiftDetail.totalRate}">text 1</td>
+					        </tr>
+					    </tbody>
+					 </table>
+             	</td>
+            </tr>
+            <tr th:each="shiftChild : ${rhShift.rhShifts}">
+             	<td> <strong th:text="${shiftChild.rhType.name}">Comment</strong></td>
+               	<td>
+               		<table class="table table-hover mbn">
+						<tbody>
+						 	<tr th:if="${shiftChild.rhTypePerm != null}">
+				             	<td><strong>Sub type</strong></td>
+				                <td th:text="${shiftChild.rhTypePerm.name}"></td>
+				            </tr>
+				            <tr th:if="${shiftChild.rhStatus != null}">
+				             	<td><strong>Status</strong></td>
+				                <td th:text="${shiftChild.rhStatus.name}"></td>
+				            </tr>
+				             <tr th:if="${shiftChild.dateStartShift != null}">
+				             	<td><strong>Start date/time</strong></td>
+				                <td th:text="${#calendars.format(shiftChild.dateStartShift,'dd/MM/yyyy HH:mm')}"></td>
+				            </tr>
+				            <tr th:if="${shiftChild.dateFinishShift != null}">
+				             	<td><strong>Finish date/time</strong></td>
+				                <td th:text="${#calendars.format(shiftChild.dateFinishShift,'dd/MM/yyyy HH:mm')}"></td>
+				            </tr>
+<!-- 				             <tr th:if="${shiftChild.rhShiftPeriod != null}"> -->
+<!-- 				             	<td><strong>Period</strong></td> -->
+<!-- 				                <td th:text="${'From ' + #calendars.format(shiftChild.rhShiftPeriod.dateStart,'dd/MM/yyyy') -->
+<!-- 				                				+ ' to ' + #calendars.format(shiftChild.rhShiftPeriod.dateFinish,'dd/MM/yyyy')}"> -->
+<!-- 				                </td> -->
+<!-- 				            </tr> -->
+				            <tr th:if="${shiftChild.sisRegion != null}">
+				             	<td><strong>Region</strong></td>
+				                <td th:text="${shiftChild.sisRegion.name}"></td>
+				            </tr> 
+				            <tr th:if="${shiftChild.rhTypeCharge != null}">
+				             	<td><strong>Charge Type</strong></td>
+				                <td th:text="${shiftChild.rhTypeCharge.name}"></td>
+				            </tr>
+				            <tr th:if="${shiftChild.reason != null}">
+				             	<td><strong>Reason</strong></td>
+				                <td th:text="${shiftChild.reason}"></td>
+				            </tr>
+				             <tr th:if="${shiftChild.response != null}">
+				             	<td><strong>Response</strong></td>
+				                <td th:text="${shiftChild.response}"></td>
+				            </tr>
+				            <tr th:if="${shiftChild.comment != null}">
+				             	<td><strong>Comment</strong></td>
+				                <td th:text="${shiftChild.comment}"></td>
+				            </tr>
+				             <tr th:if="${shiftChild.rhFiles != null}">
+				             	<td><strong>File</strong></td>
+				                <td>
+				                	<a  th:each="rhFile : ${shiftChild.rhFiles}" 
+				                		th:text="${rhFile.nameFile}" th:href="@{'/shift/download/' + ${rhFile.id}}" ></a>
+				                </td>
+				            </tr>
+				           
+				        </tbody>
+				    </table>
+               	</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="detailScale">
+<table class="table table-hover mbn">
+		<tbody>
+		 <tr th:if="${rhScale.rhSchedulePerson.rhPerson != null}">
+             	<td class="col-md-3"><strong>Staff</strong></td>
+                <td th:text="${rhScale.rhSchedulePerson.rhPerson.fullname}"></td>
+            </tr>
+             <tr th:if="${rhScale.dateStartShift != null}">
+             	<td><strong>Date</strong></td>
+                <td th:text="${#calendars.format(rhScale.date,'dd/MM/yyyy')}"></td>
+            </tr>
+<!--             <tr th:if="${rhShift.dateFinishShift != null}"> -->
+<!--              	<td><strong>Finish date/time</strong></td> -->
+<!--                 <td th:text="${#calendars.format(rhScale.date,'dd/MM/yyyy HH:mm')}"></td> -->
+<!--             </tr> -->
+         </tbody>
+      </table>
+</div>
+
+<div th:fragment="detailNone">
+	<p>We could not found any extra detail.</p>
+</div>
+</body>
+</html>

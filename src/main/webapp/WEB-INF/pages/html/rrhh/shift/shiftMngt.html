@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+<div class="page-wrapper">
+
+<!--BEGIN HEADER-->
+<header th:replace="headerTemplate :: mainHeader"> </header>
+<!--END HEADER-->
+
+<!--BEGIN WRAPPER-->
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!--BEGIN SIDEBAR-->
+	<aside th:replace="menuTemplate :: mainMenuBar"></aside>
+	<!--END SIDERBAR-->
+
+	<!--BEGIN CONTENT-->
+	<div class="content">
+<!-- 	<section class="content-header"> -->
+<!-- 		<h1 class="pull-left"> -->
+<!-- 			Extra hour regulation.  -->
+<!-- 			<small>Register and process your extra work...</small> -->
+<!-- 		</h1> -->
+<!-- 		<div class="pull-right"> -->
+<!-- 			<ol class="breadcrumb"> -->
+<!-- 				<li><a href="#">Rrhh</a></li> -->
+<!-- 				<li class="active">Regulation</li> -->
+<!-- 			</ol> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
+	<section class="main-content">
+		<div class="row">
+	        <div class="col-md-3 col-sm-6">
+	            <div class="panel panel-stat stat-primary" onclick="detailWorked(1)">
+	                <div class="panel-body">
+	                    <div class="row mbl">
+	                        <div class="col-xs-8">
+	                        	<span class="stat-title">Worked Time</span>
+	                            <h2 class="man" th:text="${#numbers.formatDecimal(mapDetail.WORK_HOUR_C,1,2) + ' Hours'}">0 Hours</h2></div>
+	                        <div class="col-xs-4"><i class="ion-speedometer"></i></div>
+	                    </div>
+	                    <div class="row">
+	                        <div class="col-xs-6"><span class="stat-title">Last period</span><h4
+	                                class="man" th:text="${#numbers.formatDecimal(mapDetail.WORK_HOUR_L,1,2) + ' Hours'}">0 Hours</h4></div>
+	<!--                         <div class="col-xs-6"><span class="stat-title">Bounce Rate</span><h4 -->
+	<!--                                 class="man">3.7%</h4></div> -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="col-md-3 col-sm-6">
+	            <div class="panel panel-stat stat-success" onclick="detailWorked(2)">
+	                <div class="panel-body">
+	                    <div class="row mbl">
+	                        <div class="col-xs-8">
+	                        	<span class="stat-title">Compensation </span>
+	                            <h2 class="man" th:text="${#numbers.formatDecimal(mapDetail.POOL_COMENSATION,1,2) + ' Hours'}" >0 Hours</h2></div>
+	                        <div class="col-xs-4"><i class="ion-ios7-download"></i></div>
+	                    </div>
+	                    <div class="row">
+	                        <div class="col-xs-6"><span class="stat-title">This period</span>
+	                        <h4 class="man" th:text="${#numbers.formatDecimal(mapDetail.COMENSATION_C,1,2) + ' Hours'}">0 Hours</h4></div>
+	<!--                         <div class="col-xs-6"><span class="stat-title">User Visits</span><h4 -->
+	<!--                                 class="man">26</h4></div> -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="col-md-3 col-sm-6">
+	            <div class="panel panel-stat stat-warning" onclick="detailWorked(3)">
+	                <div class="panel-body">
+	                    <div class="row mbl">
+	                        <div class="col-xs-8"><span class="stat-title">Extra hour</span>
+	                         <h2 class="man" th:text="${#numbers.formatDecimal(mapDetail.EXTRA_HOUR_C,1,2) + ' Hours'}">0 Hours</h2></div>
+	                        <div class="col-xs-4"><i class="ion-ribbon-a"></i></div>
+	                    </div>
+	                    <div class="row">
+	                        <div class="col-xs-6"><span class="stat-title">Last Period</span>
+	                        <h4 class="man" th:text="${#numbers.formatDecimal(mapDetail.EXTRA_HOUR_L,1,2) + ' Hours'}">0 Hours</h4></div>
+	<!--                         <div class="col-xs-6"><span class="stat-title">Last Week</span><h4 class="man"> -->
+	<!--                             82</h4></div> -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-stat stat-pink" onclick="detailWorked(4)">
+                <div class="panel-body">
+                    <div class="row mbl">
+                        <div class="col-xs-8"><span class="stat-title">Discount</span>
+
+                            <h2 class="man" th:text="${#numbers.formatDecimal(mapDetail.DISCOUNT_C,1,2) + ' Hours'}">0 Hours</h2></div>
+                        <div class="col-xs-4"><i class="ion-stats-bars"></i></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6"><span class="stat-title">Last Period</span>
+                        <h4 class="man" th:text="${#numbers.formatDecimal(mapDetail.DISCOUNT_L,1,2) + ' Hours'}">0 Hours</h4></div>
+<!--                         <div class="col-xs-6"><span class="stat-title">Last Week</span><h4 class="man"> -->
+<!--                             $5,952</h4></div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    	</div>
+		<div class="row">
+			<div class="col-md-12">
+			<div class="panel white">
+                <div class="panel-heading"><h3 class="panel-title">Register your Session. </h3>
+                    <div class="actions">
+                            <a href="javascript:;" onclick="togglePanel(this,'#panel-body-session')" class="test "><i class="ion-chevron-down"></i></a>
+                            <a href="javascript:;" onclick="updatePanelSession('#panel-body-session')"><i class="ion-refresh"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body bg-white" id="panel-body-session">
+                	<div th:replace="html/rrhh/shift/process :: processShifts('false')"></div>
+                </div>
+            </div>
+            </div>
+		</div>
+		<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+			<div class="panel-body">
+				<div class="row">
+	             	<div class="col-md-12">
+	             	<a href="#modal-extra" 
+	             		data-toggle="modal"
+	                 	class="btn btn-success btn-sm">New Extra Hour</a>
+	             	<a href="#modal-permission" 
+	             		data-toggle="modal"
+	                 	class="btn btn-success btn-sm">New Permission</a>
+	             	<a href="#modal-license" 
+	             		data-toggle="modal"
+	                 	class="btn btn-success btn-sm">New License</a>
+	             	<a href="#modal-job" 
+	             		data-toggle="modal"
+	                 	class="btn btn-primary btn-sm" 
+	                 	sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')"
+	                 	>New Schedule Job</a>
+	             	<a href="#modal-abroadJob" 
+	             		data-toggle="modal"
+	                 	class="btn btn-primary btn-sm"
+	                 	sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">New Abroad Job</a>
+	                <a href="#modal-commission" 
+	             		data-toggle="modal"
+	                 	class="btn btn-primary btn-sm"
+	                 	sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">New Commission</a>
+	             	</div>
+	             </div>
+			</div>
+			</div>
+		</div>
+		</div>
+		<div class="row">
+             <div class="col-md-12">
+              <div class="tabbable-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Pending events</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Last 35 days events </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab_1" class="tab-pane active">
+                     	<div class="bg-white table-responsive" id="divTabShift" 
+	                	th:include="html/rrhh/shift/tables :: mainTable">
+	                	</div>
+                    </div>
+                    <div id="tab_2" class="tab-pane">
+		 				<div class="bg-white table-responsive" id="divTabShiftHistory"
+		                	th:include="html/rrhh/shift/tables :: historyTable">
+		                </div>
+                    </div>
+                </div>
+            </div>
+             
+<!--              <div class="panel white"> -->
+<!--                 <div class="panel-heading"><h3 class="panel-title">Pending and active requests</h3> -->
+<!--                     <div class="actions"> -->
+<!--                             <a href="javascript:;" onclick="togglePanel(this,'#divPanelBodyShift')" class="test "><i class="ion-chevron-down"></i></a> -->
+<!--                             <a href="javascript:;" onclick="updatePanelTable('#divPanelBodyShift')"><i class="ion-refresh"></i></a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 <div class="panel-body bg-white" id="divPanelBodyShift" -->
+<!--                 	th:include="html/rrhh/shift/tables :: mainTable"> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--              <div class="panel panel-default"> -->
+<!--                 <div class="panel-heading"> -->
+<!--                 <h3 class="panel-title">Report panel. </h3> -->
+<!--                 <div class="actions mtn"> -->
+<!--                     <div class="btn-group btn-group-xs"> -->
+<!--                         <button type="button" class="btn btn-primary">Actions to show</button> -->
+<!--                         <button type="button" data-toggle="dropdown" -->
+<!--                                 class="btn btn-primary dropdown-toggle"> -->
+<!--                                 <span class="caret"></span> -->
+<!--                                 <span class="sr-only">Toggle Dropdown</span> -->
+<!--                         </button> -->
+<!--                         <ul role="menu" class="dropdown-menu pull-right"> -->
+<!--                             <li><a href="#" onclick="updateTableShift(1)">My pending requests</a></li> -->
+<!--                             <li sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')"> -->
+<!--                             	<a href="#" onclick="updateTableShift(2)">Requests to process</a></li> -->
+<!--                             <li><a href="#" onclick="updateTableShift(3)">Latest Requests(35 days)</a></li> -->
+<!--                             <li class="divider"></li> -->
+<!--                             <li><a href="#" onclick="updateTableShift(4)">Search</a></li> -->
+<!--                         </ul> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 </div> -->
+<!--              </div> -->
+             </div>
+   		</div>
+   		
+<!--    		<div class="row"> -->
+<!--              <div class="col-md-12"> -->
+<!--              <div class="panel white"> -->
+<!--                 <div class="panel-heading"><h3 class="panel-title">Last 35 days </h3> -->
+<!--                     <div class="actions"> -->
+<!--                             <a href="javascript:;" onclick="togglePanel(this,'#divPanelBodyHistory')" class="test "><i class="ion-chevron-down"></i></a> -->
+<!--                             <a href="javascript:;" onclick="updatePanelTableH('#divPanelBodyHistory')"><i class="ion-refresh"></i></a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 <div class="panel-body bg-white" id="divPanelBodyHistory" -->
+<!--                 	th:include="html/rrhh/shift/tables :: historyTable"> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--              <div class="panel panel-default"> -->
+<!--                 <div class="panel-heading"> -->
+<!--                 <h3 class="panel-title">Report panel. </h3> -->
+<!--                 <div class="actions mtn"> -->
+<!--                     <div class="btn-group btn-group-xs"> -->
+<!--                         <button type="button" class="btn btn-primary">Actions to show</button> -->
+<!--                         <button type="button" data-toggle="dropdown" -->
+<!--                                 class="btn btn-primary dropdown-toggle"> -->
+<!--                                 <span class="caret"></span> -->
+<!--                                 <span class="sr-only">Toggle Dropdown</span> -->
+<!--                         </button> -->
+<!--                         <ul role="menu" class="dropdown-menu pull-right"> -->
+<!--                             <li><a href="#" onclick="updateTableShift(1)">My pending requests</a></li> -->
+<!--                             <li sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')"> -->
+<!--                             	<a href="#" onclick="updateTableShift(2)">Requests to process</a></li> -->
+<!--                             <li><a href="#" onclick="updateTableShift(3)">Latest Requests(35 days)</a></li> -->
+<!--                             <li class="divider"></li> -->
+<!--                             <li><a href="#" onclick="updateTableShift(4)">Search</a></li> -->
+<!--                         </ul> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 </div> -->
+<!--              </div> -->
+<!--              </div> -->
+<!--    		</div> -->
+	</section>
+	</div>
+	<!--END CONTENT-->
+</div>
+<!--END WRAPPER-->
+
+ <div th:replace="modalTemplate :: loadingModal"></div>
+ <div th:replace="html/rrhh/extraHour/process :: newExtra"></div>
+ <div th:replace="html/rrhh/permission/process :: newPermission"></div>
+ <div th:replace="html/rrhh/license/process :: newLicense"></div>
+ <div th:replace="html/rrhh/schedJob/process :: newJob"></div>
+ <div th:replace="html/rrhh/abroadJob/process :: newAbroadJob"></div>
+ <div th:replace="html/rrhh/commission/process :: newCommission"></div>
+ 
+ <div th:replace="html/rrhh/extraHour/process :: processExtra"></div>
+ <div th:replace="html/rrhh/permission/process :: processPermission"></div>
+ <div th:replace="html/rrhh/license/process :: processLicense"></div>
+ <div th:replace="html/rrhh/scale/process :: modalProcess"></div>
+ <div th:replace="html/rrhh/schedJob/process :: modalProcess"></div>
+ <div th:replace="html/rrhh/scale/process :: processAlert"></div>
+ <div th:replace="html/rrhh/shift/process :: modalInfo"></div>
+</div>
+</div>
+
+<div th:replace="scriptTemplate :: rrhhScripts(shift.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(extraHour.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(permission.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(scale.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(schedJob.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(abroadJob.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(license.js)"></div>
+<div th:replace="scriptTemplate :: rrhhOneScript(commission.js)"></div>
+
+<script th:inline="javascript">
+	//<![CDATA[
+	$(document).ready(function() {
+		$(".clock").countup({
+			 nowDate		: new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]),
+		});
+	});
+	//]]>
+</script>
+<script th:inline="javascript" th:if="${shiftScale.validate == 5}">
+	//<![CDATA[
+	$(document).ready(function() {
+		$(".clockUp").countup({
+		    clock       : true,
+		    nowDate		: new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]),
+		    startDate	: new Date([[${#calendars.format(shiftScale.dateStartShift,'yyyy/MM/dd HH:mm:ss')}]]),
+		});
+	});
+	//]]>
+</script>
+<script th:inline="javascript" th:if="${shiftScheJob.validate == 5}">
+	//<![CDATA[
+	$(document).ready(function() {
+		$(".clockUp").countup({
+		    clock       : true,
+		    nowDate		: new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]),
+		    startDate	: new Date([[${#calendars.format(shiftScheJob.dateStartShift,'yyyy/MM/dd HH:mm:ss')}]]),
+		});
+	});
+	//]]>
+</script>
+
+</body>
+</html>

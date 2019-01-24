@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head>
+</head>
+<body>
+
+<div th:fragment="processShifts(script)" >
+	<div class="col-md-6">
+		<div class="row" th:if="${shiftScale.validate == 6}">
+			<div class="col-md-10">
+				<div class="alert alert-success alert-dismissable fade in">
+				 <button type="button" data-dismiss="alert" aria-hidden="true"
+                                            class="close">&times;</button>
+					<strong>Shift Session. </strong> You don't have assigned an schedule.
+				</div>
+			</div>
+		</div>
+        <div class="row" th:if="${shiftScale.validate == 1}">
+			<div class="col-md-10">
+				<div class="alert alert-danger alert-dismissable fade in">
+				 <button type="button" data-dismiss="alert" aria-hidden="true"
+                                            class="close">&times;</button>
+					<strong>Shift Session </strong> You haven't a shift related.
+				</div>
+			</div>
+		</div>
+
+		<div class="row" th:if="${shiftScale.validate == 2}">
+			<div class="col-md-10">
+				<div class="alert alert-warning alert-dismissable fade in">
+					<strong>Sorry!! </strong> You have a invalid IP to process your shift session.
+				</div>
+			</div>
+		</div>
+
+		<div class="row" th:if="${shiftScale.validate == 3}">
+			<div class="col-md-10">
+				<div class="alert alert-info alert-dismissable fade in">
+					<button type="button" data-dismiss="alert" aria-hidden="true"
+                                            class="close">&times;</button>
+					<strong>Info!! </strong> You haven't a shift for
+					today or already registered.
+				</div>
+			</div>
+		</div>
+
+	
+		<!-- Schedule Job validations -->
+		<div class="row" th:if="${shiftScheJob.validate == 1}">
+			<div class="col-md-10">
+<!-- 				<div class="alert alert-info alert-dismissable fade in"> -->
+<!-- 					<button type="button" data-dismiss="alert" aria-hidden="true" -->
+<!--                                             class="close">&times;</button> -->
+<!-- 					<strong>Sorry!</strong> You don't have any Schedule Job -->
+<!-- 					for Today... -->
+<!-- 				</div> -->
+			</div>
+		</div>
+		<div class="row" th:if="${shiftScheJob.validate == 3}">
+			<div class="col-md-10">
+				<div class="alert alert-warning alert-dismissable fade in">
+					<button type="button" data-dismiss="alert"
+						aria-hidden="true" class="close">&times;</button>
+					<strong>Warning!</strong> You have an schedule Job but you should start at least one hour
+					before work...
+				</div>
+
+			</div>
+		</div>
+		
+		<!-- Schedule Job and shift Scale clocks-->
+		<div class="row mbsm"
+			th:if="${shiftScale.validate == 4 || shiftScale.validate == 5}">
+			<div class="col-md-6">
+				Your scheduled shift for today <br /> 
+				Start: <strong th:text="${#calendars.format(shiftScale.dateStart,'dd/MM/yyyy HH:mm')}">
+				</strong><br /> 
+				Finish: <strong	th:text="${#calendars.format(shiftScale.dateFinish,'dd/MM/yyyy HH:mm')}">
+				</strong>
+			</div>
+			<div class="col-md-6">
+				<p class="clock">
+					Current Time <strong class="plsm" id="hours"> </strong> <strong
+						id="point">:</strong> <strong id="min"></strong> <strong
+						id="point">:</strong> <strong id="sec"> </strong>
+				</p>
+<!-- 								<p th:if="${shiftScale.validate == 5}"> -->
+<!-- 									Start time: <strong -->
+<!-- 										th:text="${#calendars.format(shiftScale.dateStartShift,'MM/dd HH:mm')}"></strong> -->
+<!-- 								</p> -->
+				<ul class="list-inline clockUp text-left">
+					<li id="chours" class="fw700 fz30 ">00</li>
+					<li id="point" class="fw700 fz30 ">:</li>
+					<li id="cmin" class="fw700 fz30">00</li>
+					<li>Activity time.</li>
+				</ul>
+			</div>
+			<div class="col-md-8 text-center">
+					<button type="button" class="btn btn-primary btn-lg"
+						th:if="${shiftScale.validate == 4}"
+						th:onclick="'javascript:startScale(\''+ ${shiftScale.id} +'\');'">
+						Start</button>
+					<button type="button" disabled="disabled"
+						class="btn btn-default btn-lg"
+						th:if="${shiftScale.validate != 4}">Start</button>
+					<button type="button" class="btn btn-primary btn-lg"
+						th:if="${shiftScale.validate == 5}"
+						th:onclick="'javascript:finishScale(\''+ ${shiftScale.id} +'\');'">
+						Finish</button>
+					<button type="button" disabled="disabled"
+						class="btn btn-default btn-lg"
+						th:if="${shiftScale.validate != 5}">Finish</button>
+			</div>
+			
+		</div>
+		
+		<div class="row mbsm" th:if="${shiftScheJob.validate == 4 || shiftScheJob.validate == 5}">
+			<div class="col-md-6">
+				Your scheduled job for today <br /> 
+				Start: <strong th:text="${#calendars.format(shiftScheJob.dateStart,'dd/MM/yyyy HH:mm')}">
+				</strong><br /> 
+				Finish: <strong	th:text="${#calendars.format(shiftScheJob.dateFinish,'dd/MM/yyyy HH:mm')}">
+				</strong>
+			</div>
+			<div class="col-md-6">
+				<p class="clock">
+					Current Time <strong class="plsm" id="hours"> </strong> <strong
+						id="point">:</strong> <strong id="min"></strong> <strong
+						id="point">:</strong> <strong id="sec"> </strong>
+				</p>
+				<ul class="list-inline clockUp text-left">
+					<li id="chours" class="fw700 fz30 ">00</li>
+					<li id="point" class="fw700 fz30 ">:</li>
+					<li id="cmin" class="fw700 fz30">00</li>
+					<li>Activity time.</li>
+				</ul>
+			</div>
+			<div class="col-md-8 text-center">
+					<button type="button" class="btn btn-primary btn-lg"
+						th:if="${shiftScheJob.validate == 4}"
+						th:onclick="'javascript:startScheduleJob(\''+ ${shiftScheJob.id} +'\');'">
+						Start</button>
+					<button type="button" disabled="disabled"
+						class="btn btn-default btn-lg"
+						th:if="${shiftScheJob.validate != 4}">Start</button>
+					<button type="button" class="btn btn-primary btn-lg"
+						th:if="${shiftScheJob.validate == 5}"
+						th:onclick="'javascript:finishScheduleJob(\''+ ${shiftScheJob.id} +'\');'">
+						Finish</button>
+					<button type="button" disabled="disabled"
+						class="btn btn-default btn-lg"
+						th:if="${shiftScheJob.validate != 5}">Finish</button>
+			</div>
+		</div>
+			
+		
+	</div>
+    <div class="col-md-6" sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')" >
+    	<p>Active sessions:</p>
+		<div class="bg-white table-responsive" id="divPanelPendig" 
+               		th:include="html/rrhh/shift/tables :: activeSessions">
+        </div>
+        <hr/>
+        <p>Planned sessions:</p>
+		<div class="bg-white table-responsive" id="divPanelPendig" 
+               		th:include="html/rrhh/shift/tables :: plannedSessions">
+               		
+        </div>
+	</div>
+	<div th:if="${script == 'true'}">
+		<script th:inline="javascript">
+			//<![CDATA[
+			$(document).ready(function() {
+				$(".clock").countup({
+					 nowDate		: new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]),
+				});
+			});
+			//]]>
+		</script>
+		<script th:inline="javascript" th:if="${shiftScale.validate == 5}">
+			//<![CDATA[
+			$(document).ready(function() {
+				$(".clockUp").countup({
+				    clock       : true,
+				    nowDate		: new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]),
+				    startDate	: new Date([[${#calendars.format(shiftScale.dateStartShift,'yyyy/MM/dd HH:mm:ss')}]]),
+				});
+			});
+			//]]>
+		</script>
+		<script th:inline="javascript" th:if="${shiftScheJob.validate == 5}">
+			//<![CDATA[
+			$(document).ready(function() {
+				$(".clockUp").countup({
+				    clock       : true,
+				    nowDate		: new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]),
+				    startDate	: new Date([[${#calendars.format(shiftScheJob.dateStartShift,'yyyy/MM/dd HH:mm:ss')}]]),
+				});
+			});
+			//]]>
+		</script>
+	</div>
+</div>
+
+<div th:fragment="modalInfo" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	 data-backdrop="static" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Shift's detail. </h4></div>
+            <div class="modal-body" id="">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn white">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

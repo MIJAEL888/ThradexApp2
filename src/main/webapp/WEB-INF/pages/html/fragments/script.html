@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head >
+</head>
+<body>
+<div th:fragment="mainScripts">
+	<script th:src="@{/static/global/js/jquery.js}" ></script>
+	<script th:src="@{/static/global/js/jquery-migrate-1.2.1.min.js}" ></script>
+	<script th:src="@{/static/global/js/jquery-ui.js}" ></script>
+	<script th:src="@{/static/global/plugins/bootstrap/js/bootstrap.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js}" ></script>
+	<script th:src="@{/static/global/js/html5shiv.js}" ></script>
+	<script th:src="@{/static/global/js/respond.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/slimScroll/jquery.slimscroll.js}" ></script>
+	<script th:src="@{/static/global/plugins/iCheck/icheck.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/iCheck/custom.min.js}" ></script>
+	<script th:src="@{/static/assets/plugins/jquery-metisMenu/jquery.menu.min.js}" ></script>
+	<script th:src="@{/static/assets/plugins/jquery.blockUI.js}" ></script>
+	<script th:src="@{/static/global/js/app.js}" ></script>
+	<script th:src="@{/static/assets/js/quick-sidebar.js}" ></script>
+	<script th:src="@{/static/assets/js/admin-setting.js}" ></script>
+	<script th:src="@{/static/assets/js/layout.js}" ></script>
+</div>
+
+<div th:fragment="rrhhOneScript(pageName)" >
+	<script th:src="@{/static/assets/js/pages/rrhh/}+${pageName}" ></script>
+</div>
+<div th:fragment="rrhhScripts(pageName)" >
+	<script th:src="@{/static/global/js/jquery.js}" ></script>
+	<script th:src="@{/static/global/js/jquery-migrate-1.2.1.min.js}" ></script>
+	<script th:src="@{/static/global/js/jquery-ui.js}" ></script>
+	<script th:src="@{/static/global/plugins/moment/moment.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/bootstrap/js/bootstrap.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js}" ></script>
+	<script th:src="@{/static/global/js/html5shiv.js}" ></script>
+	<script th:src="@{/static/global/js/respond.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/slimScroll/jquery.slimscroll.js}" ></script>
+	<script th:src="@{/static/global/plugins/iCheck/icheck.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/iCheck/custom.min.js}" ></script>
+	<script th:src="@{/static/assets/plugins/jquery-metisMenu/jquery.menu.min.js}" ></script>
+	<script th:src="@{/static/assets/plugins/jquery.blockUI.js}" ></script>
+	
+	<script th:src="@{/static/assets/plugins/form-validator/js/formValidation.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/form-validator/js/framework/bootstrap.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/jquery-form/jquery.form.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/jquery-datatables/media/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/jquery-datatables/media/js/dataTables.bootstrap.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/jquery-datatables/extensions/Responsive/js/dataTables.responsive.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/bootstrap-slider/js/bootstrap-slider.js}"></script>
+	<script th:src="@{/static/assets/plugins/bootstrap-file-input/fileinput.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/jq-countup/jquery.countup.js}" ></script>
+	<script th:src="@{/static/assets/plugins/fullcalendar/fullcalendar.min.js}" ></script>
+	
+	<script th:src="@{/static/global/js/app.js}" ></script>
+	<script th:src="@{/static/assets/js/quick-sidebar.js}" ></script>
+	<script th:src="@{/static/assets/js/admin-setting.js}" ></script>
+	<script th:src="@{/static/assets/js/layout.js}" ></script>
+	<script th:src="@{/static/assets/js/pages/rrhh/}+${pageName}" ></script>
+</div>
+
+
+<div th:fragment="rrhhScriptsHighcharts(pageName)" >
+<!-- 	<script th:src="@{/static/global/js/jquery.js}" ></script> -->
+	<script th:src="@{/static/global/code/highcharts.js}" ></script>
+	<script th:src="@{/static/global/code/modules/exporting.js}" ></script>	
+</div>
+
+
+<div th:fragment="dashScripts" >
+	<script th:src="@{/static/global/js/jquery.js}" ></script>
+	<script th:src="@{/static/global/js/jquery-migrate-1.2.1.min.js}" ></script>
+	<script th:src="@{/static/global/js/jquery-ui.js}" ></script>
+	<script th:src="@{/static/global/plugins/bootstrap/js/bootstrap.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js}" ></script>
+	<script th:src="@{/static/global/js/html5shiv.js}" ></script>
+	<script th:src="@{/static/global/js/respond.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/slimScroll/jquery.slimscroll.js}" ></script>
+	<script th:src="@{/static/global/plugins/iCheck/icheck.min.js}" ></script>
+	<script th:src="@{/static/global/plugins/iCheck/custom.min.js}" ></script>
+	<script th:src="@{/static/assets/plugins/jquery-metisMenu/jquery.menu.min.js}" ></script>
+	<script th:src="@{/static/assets/plugins/jquery.blockUI.js}" ></script>
+	<script th:src="@{/static/assets/plugins/form-validator/js/formValidation.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/form-validator/js/framework/bootstrap.min.js}"></script>
+	<script th:src="@{/static/assets/plugins/jquery-form/jquery.form.min.js}"></script>
+	<script th:src="@{/static/global/js/app.js}" ></script>
+	<script th:src="@{/static/assets/js/quick-sidebar.js}" ></script>
+	<script th:src="@{/static/assets/js/admin-setting.js}" ></script>
+	<script th:src="@{/static/assets/js/layout.js}" ></script>
+	<script th:src="@{/static/assets/js/pages/dash.js}" ></script>
+</div>
+</body>
+</html>

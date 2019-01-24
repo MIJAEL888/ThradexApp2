@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+<div class="page-wrapper">
+
+<!--BEGIN HEADER-->
+<header th:replace="headerTemplate :: mainHeader"> </header>
+<!--END HEADER-->
+
+<!--BEGIN WRAPPER-->
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!--BEGIN SIDEBAR-->
+	<aside th:replace="menuTemplate :: mainMenuBar"></aside>
+	<!--END SIDERBAR-->
+
+	<!--BEGIN CONTENT-->
+	<div class="content">
+
+	<section class="main-content">
+		
+		<div class="row">
+			<div class="col-md-12">
+			<div class="panel white">
+                <div class="panel-heading"><h3 class="panel-title">Register your Session. </h3>
+                    <div class="actions">
+                            <a href="javascript:;" onclick="togglePanel(this,'#panel-body-session')" class="test "><i class="ion-chevron-down"></i></a>
+                            <a href="javascript:;" onclick="updatePanelSession('#panel-body-session')"><i class="ion-refresh"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body bg-white" id="panel-body-session">
+<!--                 	<div th:replace="html/rrhh/shift/process :: processShifts('false')"></div> -->
+
+<div th:replace="scriptTemplate :: rrhhScripts(shift.js)"></div>
+<div th:replace="scriptTemplate :: rrhhScriptsHighcharts(shift2.js)"></div>
+
+<!-- <a href="#" th:text="${categorias}">Title ...</a> -->
+
+
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<!-- <td th:each="evento : ${lsEvenUsuario}"> -->
+<!--   <span th:text="${evento.nombrePersona + ','}" />  -->
+<!-- </td> -->
+
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+var tipo = /*[[${tipo}]]*/:'valdefault';
+var aprobado = /*[[${aprobado}]]*/:'valdefault';
+var reportado = /*[[${reportado}]]*/:'valdefault';
+
+var lsTipo= tipo.split(',');
+var lsAprobado= aprobado.split(',').map(function(item) {
+    return parseFloat(item, 10);
+});
+var lsReportado= reportado.split(',').map(function(item) {
+    return parseFloat(item, 10);
+});
+
+
+// console.log(lsCateg);
+// console.log(lsProcesar);
+// console.log(lsProcesar);
+
+var chart = {type: 'column'};
+var title = {text: 'Descuentos y Horas Extras Efectivas'};
+var subtitle = { text: '' }
+
+var xAxis = { 
+	 categories: lsTipo,
+	 labels: {
+         x: -10
+     }
+};
+var yAxis = {
+	allowDecimals: false,
+    title: {
+        text: 'Eventos'
+    }
+};
+var legend = {
+//     align: 'right',
+//     verticalAlign: 'top',
+// 	layout: 'vertical'
+	align: 'center',
+    verticalAlign: 'bottom'
+};
+
+var series = [
+	{
+	    name: 'Efectivo',
+	    data: lsAprobado
+	}, {
+	    name: 'Reportadas',
+	    data: lsReportado
+	}
+];
+
+var json = {};
+json.chart=chart;
+json.title=title;
+json.subtitle=subtitle;
+json.xAxis=xAxis;
+json.yAxis=yAxis;
+json.legend=legend;
+json.series=series;
+$('#container').highcharts(json);
+
+
+/*]]>*/
+		</script>
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+            </div>
+		</div>
+		
+		
+		
+   		
+    		
+	</section>
+	</div>
+	<!--END CONTENT-->
+</div>
+<!--END WRAPPER-->
+
+ 
+</div>
+</div>
+
+
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(extraHour.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(permission.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(scale.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(schedJob.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(abroadJob.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(license.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(commission.js)"></div> -->
+
+
+
+</body>
+</html>

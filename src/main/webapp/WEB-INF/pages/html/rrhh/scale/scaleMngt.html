@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+    <div class="page-wrapper">
+    	<!--BEGIN HEADER-->
+       	<header th:replace="headerTemplate :: mainHeader" >
+       	</header>
+        <!--END HEADER-->
+         
+        <!--END HORIZONTAL SIDEBAR--><!--BEGIN WRAPPER-->
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+        	<!--BEGIN SIDEBAR-->
+          <aside  th:replace="menuTemplate :: mainMenuBar">
+           </aside>
+            <!--END SIDERBAR-->
+            
+            <!--BEGIN CONTENT-->
+            <div class="content">
+<!--                 <section class="content-header"> -->
+<!--                     <h1 class="pull-left">Sift Registration  -->
+<!--                         <small>Shift Reg...</small> -->
+<!--                     </h1> -->
+<!--                     <div class="pull-right"> -->
+<!--                         <ol class="breadcrumb"> -->
+<!--                             <li><a href="#">Rrhh</a></li> -->
+<!--                             <li class="active">Shift </li> -->
+<!--                         </ol> -->
+<!--                     </div> -->
+<!--                 </section> -->
+                <section class="main-content">
+                <div class="panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="tabbable-custom">
+                               <ul class="nav nav-tabs">
+                                   <li class="active"><a href="#tab_5_1" data-toggle="tab">Regular Scale</a></li>
+                                   <li sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')"><a href="#tab_5_2" data-toggle="tab">Active Sessions</a></li>
+                               </ul>
+                               <div class="tab-content">
+                                  <div id="tab_5_1" class="tab-pane active">
+                                   
+                                   <div class="row" th:if="${shiftScale.validate == 1}">
+	                                   <div class="col-md-6">
+	                                   <div class="alert alert-danger alert-dismissable fade in">
+	                                        <strong>Oh snap!</strong> You haven't a schedule related. 
+	                                        Ask to the administrator.
+	                                   </div>
+	                                   </div>
+                                   </div>
+                                   
+                                   <div class="row" th:if="${shiftScale.validate == 2}">
+	                                   <div class="col-md-6">
+	                                   <div class="alert alert-warning alert-dismissable fade in">
+	                                        <strong>Sorry!! </strong> You have a invalid IP.
+	                                   </div>
+	                                   </div>
+                                   </div>
+                                   
+                                   <div class="row" th:if="${shiftScale.validate == 3}">
+	                                   <div class="col-md-6">
+	                                    <div class="alert alert-info alert-dismissable fade in">
+	                                        <strong>Info!! </strong> You haven't a schedule shift for today or already registered.
+	                                   </div>
+	                                   </div>
+                                   </div>
+                                   
+                                   	<div class="row" th:if="${shiftScale.validate == 4 || shiftScale.validate == 5}">
+                                   	<div class="col-md-6">
+                                   		Your scheduled shift for today is <br/>
+                                   		Start: <strong th:text="${#calendars.format(shiftScale.dateStart,'dd/MM/yyyy HH:mm')}"> </strong><br/> 
+                                   		Finish: <strong th:text="${#calendars.format(shiftScale.dateFinish,'dd/MM/yyyy HH:mm')}"> </strong> 
+                                   		
+                                   		
+                                   		<p class="text-center">
+                                   		 	<button type="button" class="btn btn-primary btn-lg"
+                                            th:if="${shiftScale.validate == 4}" 
+                                            th:onclick="'javascript:startScale(\''+ ${shiftScale.rhScheduleScale.id} +'\');'">
+                                            Start</button>
+                                            <button type="button" disabled="disabled" class="btn btn-default btn-lg"
+                                             th:if="${shiftScale.validate != 4}">Start</button>
+                                            <button type="button" class="btn btn-primary btn-lg"
+                                            th:if="${shiftScale.validate == 5}" 
+ 											th:onclick="'javascript:finishScale(\''+ ${shiftScale.id} +'\');'">
+ 											Finish</button>
+                                            <button type="button" disabled="disabled" class="btn btn-default btn-lg"
+                                            th:if="${shiftScale.validate != 5}">Finish</button>
+                                        </p>
+                                      </div>
+	                                  <div class="col-md-6">
+	                                   		<p class="clock">Current Time <strong class="plsm" id="hours"> </strong>
+	                                   						<strong id="point">:</strong>
+	                                   						<strong id="min"></strong>
+	                                   						<strong id="point">:</strong>
+	                                   						<strong id="sec"> </strong>
+	                                   		</p>
+	                                   		<p  th:if="${shiftScale.validate == 5}"> 
+	                                   			Start time: 
+	                                   			<strong th:text="${#calendars.format(shiftScale.dateStartShift,'MM/dd HH:mm')}"></strong>
+	                                   		</p>
+	                                   		<ul class="list-inline clock text-left">
+		                                        <li id="chours" class="fw700 fz30 " >00</li>
+		                                        <li id="point" class="fw700 fz30 ">:</li>
+		                                        <li id="cmin" class="fw700 fz30">00</li>
+		                                    </ul>
+	                                   	</div>
+	                                	</div>
+                                 	</div>
+                                  <div id="tab_5_2" class="tab-pane" sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">
+                                  	<div class="row">
+		                               	<div class="col-md-12">
+		                               		<p>Active sessions on your area: </p>
+		                                </div>
+		                                
+                                  	</div>
+                                  	<div class="row">
+		                               	<div class="col-md-12">
+		                               		<div th:include="html/rrhh/scale/tables :: activeSessions"></div>
+		                                </div>
+		                                
+                                  	</div>
+                                  </div>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="row">
+		             <div class="col-md-12">
+		             <div class="panel panel-default">
+		                <div class="panel-heading">
+		                <h3 class="panel-title">Report panel. </h3>
+		                <div class="actions mtn">
+		                    <div class="btn-group btn-group-xs">
+		                        <button type="button" class="btn btn-primary">Actions to show</button>
+		                        <button type="button" data-toggle="dropdown"
+		                                class="btn btn-primary dropdown-toggle">
+		                                <span class="caret"></span>
+		                                <span class="sr-only">Toggle Dropdown</span>
+		                        </button>
+		                        <ul role="menu" class="dropdown-menu pull-right">
+		                            <li><a href="#" onclick="updateTable(1)">My pending requests</a></li>
+		                            <li sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">
+		                            	<a href="#" onclick="updateTable(2)">Requests to process</a></li>
+		                            <li><a href="#" onclick="updateTable(3)">Latest Requests(35 days)</a></li>
+		                            <li class="divider"></li>
+		                            <li><a href="#" onclick="updateTable(4)">Search</a></li>
+		                        </ul>
+		                    </div>
+		                </div>
+		                </div>
+		                <div id="divPanelBodyEH" class="panel-body" 
+		                	th:include="html/rrhh/scale/tables :: mainTable">
+		                </div>
+		             </div>
+		             </div>
+		             </div>
+                </div>
+                </div>
+                </section>
+            </div>
+            <!--END CONTENT-->	
+        </div>
+        <!--END WRAPPER-->
+        </div>
+</div>
+ <div th:include="modalTemplate :: loadingModal"></div>
+ <div th:include="html/rrhh/scale/process :: modalProcess"></div>
+
+	<div th:include="scriptTemplate :: rrhhScripts(scale.js)"></div>
+	<script th:inline="javascript">
+	//<![CDATA[
+	$(document).ready(function() {
+// 		alert("test javascript");
+	// Create two variable with the names of the months and days in an array
+	var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+	var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+	
+	var newDate = new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]);
+	
+	newDate.setDate(newDate.getDate());      
+	var seconds = newDate.getSeconds();
+	var minutes = newDate.getMinutes();
+	var hours = newDate.getHours();
+
+	setInterval( function() {
+		$("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+		$("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+		$("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+		$('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+		seconds++;
+		if (seconds == 60) {
+			seconds = 0;
+			minutes++;
+			if (minutes == 60) {
+				minutes = 0;
+				hours++;
+				if (hours == 24) {
+					hours= 0;
+					newDate.setDate(newDate.getDate() + 1);
+				}
+			}
+		}
+	},1000);
+});
+	//]]>
+</script>
+<script th:inline="javascript" th:if="${shiftScale.validate == 5}">
+	//<![CDATA[
+	$(document).ready(function() {
+		var newDate = new Date([[${#calendars.format(dateNow,'yyyy/MM/dd HH:mm:ss')}]]);
+		newDate.setDate(newDate.getDate()); 
+		var startDate = new Date([[${#calendars.format(shiftScale.dateStartShift, 'yyyy/MM/dd HH:mm:ss')}]]);
+		startDate.setDate(startDate.getDate());      
+		var cseconds =  Math.floor(((newDate - startDate) % 60000 ) / 1000);
+		var cminutes = Math.floor(((newDate - startDate) % 3600000)/ 60000);
+		var chours =  Math.floor((newDate - startDate) / 3600000);
+		
+		setInterval( function() {
+			$("#cmin").html(( cminutes < 10 ? "0" : "" ) + cminutes);
+			$("#chours").html(( chours < 10 ? "0" : "" ) + chours);
+			cseconds++;
+			if (cseconds == 60) {
+				cseconds = 0;
+				cminutes++;
+				if (cminutes == 60) {
+					cminutes = 0;
+					chours++;
+				}
+			}
+		},1000);
+	});
+	//]]>
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+    <div class="page-wrapper">
+    	<!--BEGIN HEADER-->
+       	<header th:replace="headerTemplate :: mainHeader" >
+       	</header>
+        <!--END HEADER-->
+         
+        <!--END HORIZONTAL SIDEBAR--><!--BEGIN WRAPPER-->
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+        	<!--BEGIN SIDEBAR-->
+          <aside  th:replace="menuTemplate :: mainMenuBar">
+           </aside>
+            <!--END SIDERBAR-->
+            
+            <!--BEGIN CONTENT-->
+            <div class="content">
+<!--                 <section class="content-header"> -->
+<!--                     <h1 class="pull-left">Sift Registration  -->
+<!--                         <small>Shift Reg...</small> -->
+<!--                     </h1> -->
+<!--                     <div class="pull-right"> -->
+<!--                         <ol class="breadcrumb"> -->
+<!--                             <li><a href="#">Rrhh</a></li> -->
+<!--                             <li class="active">Shift </li> -->
+<!--                         </ol> -->
+<!--                     </div> -->
+<!--                 </section> -->
+                <section class="main-content">
+                <div class="row">
+                     <div class="col-md-12">
+                         <div class="panel">
+                             <div class="panel-body">
+                             <form id="formShiftReportRh" class="form-horizontal" action="#" 
+							       	enctype="multipart/form-data" 
+							       	method="post">
+                             <div class="col-md-4">
+	                            <div class="form-group has-feedback">
+								<label class="col-md-3 control-label">Staff:</label>
+						       	<div class="col-md-9">
+									<select class="form-control input-medium"  id="idPerson">
+										<option value="0">-- SELECT AN OPTION --</option>
+										<option th:each="person : ${listPerson}" th:value="${person.id}"
+											th:text="${person.shortname} +'-' +${person.fullname} ">Country 1</option>
+									</select>
+								</div>
+							    </div>
+					    	</div>
+					    	<div class="col-md-4">
+	                            <div class="form-group has-feedback">
+								<label class="col-md-3 control-label">Event:</label>
+						       	<div class="col-md-9">
+									<select class="form-control input-medium"  id="idEvent">
+										<option value="0">-- SELECT AN OPTION --</option>
+										<option th:each="event : ${listEvents}" th:value="${event.code}"
+											th:text="${event.name}">Country 1</option>
+										<option value="100">PLANNED SCALE</option>
+									</select>
+								</div>
+							    </div>
+					    	</div>
+					    	</form>
+                            </div>
+                         </div>
+                     </div>
+                    </div>
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div id="calendar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!--END CONTENT-->	
+        </div>
+        <!--END WRAPPER-->
+        </div>
+</div>
+ <div th:include="modalTemplate :: loadingModal"></div>
+ <div th:include="modalTemplate :: modalInformation"></div>
+ <div th:include="scriptTemplate :: rrhhScripts(shift.js)"></div>
+ 
+</body>
+</html>

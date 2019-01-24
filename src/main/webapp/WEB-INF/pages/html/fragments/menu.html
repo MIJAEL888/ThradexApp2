@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+<head th:include="fragments/head :: mainHead">
+</head>
+<body >
+<!--BEGIN SIDEBAR-->
+<aside class="page-sidebar sidebar-offcanvas"  th:fragment="mainMenuBar">
+    <section class="sidebar">
+        <ul class="sidebar-menu" >
+         	<li th:each="menu : ${session.listMenu}" 
+         		th:unless="${session.listMenu.isEmpty()}">
+         		
+         	<a th:href="@{${menu.url}}">
+         	<i th:class="${menu.icon}"></i> 
+            <span class="sidebar-text" th:text="${menu.label}">level 1</span></a>
+              
+              <ul class="nav nav-second-level"
+         		th:unless="${menu.listChild.isEmpty()}">
+		    	
+                     <li th:each="menu2 : ${menu.listChild}" 
+		         		th:unless="${menu.listChild.isEmpty()}">
+		         		
+                     	<a th:href="@{${menu2.url}}"><i th:class="${menu2.icon}"></i> 
+                      	<span class="sidebar-text" th:text="${menu2.label}">level 2</span></a> 
+                      	
+                      	<ul class="nav nav-third-level" 
+                      		th:unless="${menu2.listChild.isEmpty()}">
+                      		
+                             <li th:each="menu3: ${menu2.listChild}" 
+				         		th:unless="${menu2.listChild.isEmpty()}">
+				         		
+                             <a th:href="@{${menu3.url}}"><i th:class="${menu3.icon}"></i> 
+                             <span class="sidebar-text"  th:text="${menu3.label}">level 3</span></a> 
+                            </li>
+                        </ul>
+                      	
+                     </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>
+<!--END SIDERBAR-->
+
+</body>
+</html>

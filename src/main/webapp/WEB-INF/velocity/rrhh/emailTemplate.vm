@@ -1,0 +1,60 @@
+<body>
+
+<style>
+ .header{
+	background-color: Coral;
+	text-align: center;
+	font-size: 20px;
+}
+
+ .tr1{
+ 	background-color: DarkSeaGreen;
+ 	text-align: center;
+	font-size: 15px;
+	font-style: italic;
+	
+ }
+ 
+ .tr2{
+ 	background-color:Thistle;
+ 	text-align: center;
+	font-size: 15px;
+	font-style: italic;
+ }
+ 
+</style>
+
+<table width="965" border="1">
+	<tr class="header">
+		<td style="width:25%">NAME</td>
+		<td style="width:25%">AGE</td>
+		<td style="width:25%">Marks % - After format</td>
+		<td style="width:25%">Date Enrolled - After format</td>
+	</tr>
+	#set ($counter = 0)
+	#foreach($stu in $students)
+	 	#set ($counter = $counter + 1)
+		#if ( $couter % 2 == 0)
+			<tr class="tr1">
+		#else
+			<tr class="tr2">
+		#end
+			  <td>$stu.firstName</td>
+			  <td>$stu.lastName</td>
+			  <td>
+			                                $stu.marksPercentage -- 
+			                                <font style="color:red;">
+			                                    $number.format("#0.00",$stu.marksPercentage)
+			                                </font>
+			                          </td>
+				<td>
+			                                    $stu.datEnrolled -- 
+			                                    <font style="color:red;"> 
+			                                        $date.format('short',$stu.datEnrolled)
+			                                    </font>
+			                                </td>
+			</tr>
+		#end
+	
+</table>
+</body>

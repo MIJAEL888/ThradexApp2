@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+<div class="page-wrapper">
+
+<!--BEGIN HEADER-->
+<header th:replace="headerTemplate :: mainHeader"> </header>
+<!--END HEADER-->
+
+<!--BEGIN WRAPPER-->
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!--BEGIN SIDEBAR-->
+	<aside th:replace="menuTemplate :: mainMenuBar"></aside>
+	<!--END SIDERBAR-->
+
+	<!--BEGIN CONTENT-->
+	<div class="content">
+<!-- 	<section class="content-header"> -->
+<!-- 		<h1 class="pull-left"> -->
+<!-- 			Extra hour regulation.  -->
+<!-- 			<small>Register and process your extra work...</small> -->
+<!-- 		</h1> -->
+<!-- 		<div class="pull-right"> -->
+<!-- 			<ol class="breadcrumb"> -->
+<!-- 				<li><a href="#">Rrhh</a></li> -->
+<!-- 				<li class="active">Regulation</li> -->
+<!-- 			</ol> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
+		<section class="main-content">
+			<div class="row">
+            <div class="col-md-4" sec:authorize="!hasAnyRole('ROLE_SH_RRHH')">
+            <div class="panel">
+                <div class="panel-heading">
+              		<h3 class="panel-title">
+              			<strong class="text-uppercase text-success">Generate Report</strong>
+              		</h3>
+                </div>
+                <div class="panel-body">
+                	<form  th:fragment="formShiftReport" id="formShiftReport" class="form-horizontal" action="#" 
+		       	enctype="multipart/form-data" th:action="@{/shiftReport/getReport}" 
+		       	th:object="${formShiftReport}" 
+		       	method="post">
+				<div class="form-group has-feedback">
+					<label class="col-md-3 control-label">Company:</label>
+			       	<div class="col-md-9">
+			       			<label class="text-label" th:text="${session.currentUser.rhPerson.rhCompany.name}"></label>
+<!-- 						<select class="form-control input-medium" th:field="*{idRhCompany}" id="idRhCompany"> -->
+<!-- 							<option th:each="company : ${listCompany}" th:value="${company.id}" -->
+<!-- 								th:text="${company.name}">Country 1</option> -->
+<!-- 						</select> -->
+					</div>
+			     </div>
+			     <div class="form-group has-feedback">
+					<label class="col-md-3 control-label">Period:</label>
+			       	<div class="col-md-9">
+						<select class="form-control input-medium" th:field="*{idRhShiftPeriod}">
+							<option value="0">-- SELECT AN OPTION --</option>
+							<option th:each="period : ${listPeriod}" th:value="${period.id}"
+								th:text="${period.label}">Country 1</option>
+						</select>
+					</div>
+			     </div>
+			     <div class="form-group has-feedback">
+					<label class="col-md-3 control-label">Person:</label>
+			       	<div class="col-md-9">
+						<select class="form-control input-medium" th:field="*{idRhPerson}">
+							<option value="0">-- SELECT A OPTION --</option>
+							<option th:each="person : ${listPerson}" th:value="${person.id}"
+								th:text="${person.fullname}">Country 1</option>
+						</select>
+					</div>
+			     </div>
+<!-- 				 <div class="form-group"> -->
+<!-- 				 	 	<div class="col-md-3">	</div> -->
+<!-- 				       <div class="col-md-9"> -->
+<!-- 					        	<button class="btn btn-primary export-rh" disabled="disabled" -->
+<!-- 					        	onclick="exportRerportShiftMng(0)">Export Report</button>  -->
+<!-- 					        	<button class="btn btn-primary export-rh" disabled="disabled" -->
+<!-- 					        	onclick="exportRerportShiftMng(1)">Export Detail Report </button> -->
+<!-- 					       </div> -->
+<!-- 				 </div> -->
+                	</form>
+                </div>
+            </div>
+            </div>
+       		<div class="col-md-4" sec:authorize="hasAnyRole('ROLE_SH_RRHH')">
+            <div class="panel">
+                <div class="panel-heading">
+              		<h3 class="panel-title">
+              			<strong class="text-uppercase text-success">Generate Report</strong>
+              		</h3>
+                </div>
+                <div class="panel-body">
+                	<form  th:fragment="formShiftReportRh" id="formShiftReportRh" class="form-horizontal" action="#" 
+		       	enctype="multipart/form-data" th:action="@{/shiftReport/getReportRh}" 
+		       	th:object="${formShiftReportRh}" 
+		       	method="post">
+				<div class="form-group has-feedback">
+					<label class="col-md-3 control-label">Company:</label>
+			       	<div class="col-md-9">
+						<select class="form-control input-medium" th:field="*{idRhCompany}" id="idRhCompany">
+							<option value="0">-- SELECT AN OPTION --</option>
+							<option th:each="company : ${listCompany}" th:value="${company.id}"
+								th:text="${company.name}">Country 1</option>
+						</select>
+					</div>
+				     </div>
+				     <div class="form-group has-feedback">
+						<label class="col-md-3 control-label">Period:</label>
+				       	<div class="col-md-9">
+							<select class="form-control input-medium" th:field="*{idRhShiftPeriod}" id="idRhShiftPeriod">
+								<option value="0">-- SELECT A COMPANY --</option>
+							</select>
+						</div>
+				     </div>
+				     <div class="form-group has-feedback">
+						<label class="col-md-3 control-label">Person:</label>
+				       	<div class="col-md-9">
+							<select class="form-control input-medium" th:field="*{idRhPerson}" id="idRhPerson">
+								<option value="0">-- SELECT A COMPANY --</option>
+							</select>
+						</div>
+				     </div>
+					 
+                	</form>
+                	<div class="form-group">					   
+				       <div class="col-md-12 text-center">
+				         <table class="table">
+					          <tr>
+					           <td><button class="btnRepW btn btn-default export-rh " disabled="disabled" onclick="exportRerportShiftRh(0)">Shift Report BR</button></td>
+					          </tr>
+					          <tr> 
+					           <td><button class="btn btn-default export-rh btnRepW" disabled="disabled" onclick="exportRerportShiftRh(3)">Shift Report PE</button></td>
+					          </tr>
+					          <tr> 
+					           <td><button class="btn btn-default export-rh btnRepW" disabled="disabled" onclick="exportRerportShiftRh(1)">Detail Report PE</button></td>
+					          </tr>
+					          <tr> 
+					           <td><button class="btn btn-default export-rh btnRepW" disabled="disabled" onclick="exportRerportShiftRh(2)">Detail Report-One </button></td>
+					          </tr>
+ 					   	 </table>
+				        	
+				       </div>
+					 </div>
+                </div>
+            </div>
+            </div>
+       		<div class="col-md-8" sec:authorize="!hasAnyRole('ROLE_SH_RRHH')">
+       		<div class="panel">
+                <div class="panel-heading">
+              		<h3 class="panel-title">
+              			<strong class="text-uppercase text-success">Active Sessions</strong>
+              		</h3>
+              		 <div class="actions">
+                         <a href="javascript:togglePanel(this,'#panelActiveS')"><i class="ion-chevron-down"></i></a>
+                     </div>
+              </div>
+       		  <div class="panel-body" id="panelActiveS">
+       		  	<p>Active Sessions</p>
+       			<div class="bg-white table-responsive" 
+               		th:include="html/rrhh/shift/tables :: activeSessions">
+               	</div>
+               	<p>Planned Sessions</p>
+       			<div class="bg-white table-responsive"  
+               		th:include="html/rrhh/shift/tables :: plannedSessions">
+               	</div>
+              </div>
+            </div>
+       		</div>
+       		<div class="col-md-8" sec:authorize="hasAnyRole('ROLE_SH_RRHH')">
+       		<div class="panel">
+                <div class="panel-heading">
+              		<h3 class="panel-title">
+              			<strong class="text-uppercase text-success">Active and Planned Sessions</strong>
+              		</h3>
+              		<div class="actions">
+                         <a href="#" onclick="togglePanel(this,'#panelActiveR')"><i class="ion-chevron-down"></i></a>
+                     </div>
+              </div>
+       		  <div class="panel-body" id="panelActiveR">
+       		  	<p>Active Sessions</p>
+       			<div class="bg-white table-responsive"  
+               		th:include="html/rrhh/shift/tables :: reportActive">
+               	</div>
+               	<hr/>
+               	<p>Planned Sessions</p>
+       			<div class="bg-white table-responsive"  
+               		th:include="html/rrhh/shift/tables :: reportPlanned">
+               	</div>
+              </div>
+       		</div>
+       		</div>
+       		</div>
+       		
+       		<div class="row">
+       		<div class="col-md-12">
+              <div class="tabbable-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Pending events</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Processed events </a></li>
+<!--                     <li><a href="#tab_3" data-toggle="tab">Detail of processed events </a></li> -->
+                    <li><a href="#tab_4" data-toggle="tab">Summary of processed events </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab_1" class="tab-pane active">
+                     	<div class="bg-white table-responsive" id="divPanelPendig" 
+	                		th:include="html/rrhh/shift/tables :: reportPending">
+	                	</div>
+                    </div>
+                    <div id="tab_2" class="tab-pane">
+		 				<div class="bg-white table-responsive" id="divPanelProcessed"
+		                	th:include="html/rrhh/shift/tables :: reportProcessed">
+		                </div>
+                    </div>
+<!--                     <div id="tab_3" class="tab-pane"> -->
+<!-- 		 				<div class="bg-white table-responsive" id="divPanelDetail" -->
+<!-- 		                	th:include="html/rrhh/shift/tables :: reportDetailed"> -->
+<!-- 		                </div> -->
+<!--                     </div> -->
+                    <div id="tab_4" class="tab-pane ">
+                     	<div class="bg-white table-responsive" id="divPanelSummary" 
+	                		th:include="html/rrhh/shift/tables :: reportSummary">
+	                	</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+           
+            </div>
+            
+<!--    			<div class="row"> -->
+<!--    			 <div class="col-md-12"> -->
+<!--             <div class="panel white"> -->
+<!--                <div class="panel-heading"><h3 class="panel-title">Pending events</h3> -->
+<!--                    <div class="actions"> -->
+<!--                            <a href="javascript:;" onclick="togglePanel(this,'#divPanelPendig')" class="test "><i class="ion-chevron-down"></i></a> -->
+<!--                    </div> -->
+<!--                </div> -->
+<!--                <div class="panel-body bg-white" id="divPanelPendig" -->
+<!--                		th:include="html/rrhh/shift/tables :: reportPending"> -->
+<!--                </div> -->
+<!--             </div> -->
+<!--             </div> -->
+<!--              <div class="col-md-12"> -->
+<!--              <div class="panel white"> -->
+<!--                 <div class="panel-heading"><h3 class="panel-title">Processed events</h3> -->
+<!--                     <div class="actions"> -->
+<!--                             <a href="javascript:;" onclick="togglePanel(this,'#divPanelProcessed')" class="test "><i class="ion-chevron-down"></i></a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 <div class="panel-body bg-white" id="divPanelProcessed" -->
+<!--                 	th:include="html/rrhh/shift/tables :: reportProcessed"> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--             </div> -->
+<!--             </div> -->
+            
+		</section>
+	</div>
+	<!--END CONTENT-->
+</div>
+<!--END WRAPPER-->
+
+ <div th:replace="modalTemplate :: loadingModal"></div>
+ <div th:replace="html/rrhh/shift/process :: modalInfo"></div>
+ 
+</div>
+</div>
+
+<div th:replace="scriptTemplate :: rrhhScripts(shiftReport.js)"></div>
+
+</body>
+</html>

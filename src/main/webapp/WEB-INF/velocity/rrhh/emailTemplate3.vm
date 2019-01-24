@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<table style="width:100%; background-color: #f5f6f6; padding: 0; border-collapse: collapse; " >
+	<tr>	
+		<td align="center">
+		<table style="background-color: #fff; width:860px; border-collapse: collapse; font-family: Verdana, Arial, Helvetica, sans-serif; color: #323232; font-size: 11px;" >
+			<tbody>
+				<tr style="border-bottom: #ABCA58 2px solid;">
+					<td style="padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;">
+						<table style="  width:100%; border-collapse: collapse;  font-weight: bold; font-family: Verdana, Helvetica, sans-serif;">
+							<tbody>
+							 	
+								<tr >
+		
+									<td style="width: 65%;font-size: 18px; padding-bottom: 4px;">Shift Manager 
+		                                <!--<img src="../../static/images/header.jpg" alt="w" width="820" height="60" style="float: left">         -->
+		                            </td>
+		 							<td style="text-align: right;padding-right: 15px; font-size: 24px;"></td>
+		                            <td style="text-align: right;padding-left: 0px;font-size: 24px;">
+		                            	<img alt="Thradex & Telecom" src="https://appmanager.thradex.com/ThradexApp2/static/global/images/logoMain.png" 
+		                            	height="28px"/>
+		                            </td>
+								</tr>
+		                       
+							</tbody>
+						</table>
+					</td>
+				</tr>
+		<!-- 		<tr> -->
+		<!-- 			<td style='font-weight:bold;  padding-left: 10%; padding-top: 10px;'> -->
+		<!-- 			Ticket Message  -->
+		<!-- 			</td> -->
+		<!-- 		</tr> -->
+				<tr>
+					<td align="left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;">
+						<table style="width: 100%; font-size:12px; color:#323232; margin-top: 5px" >
+							 <tbody>
+								  <tr > 
+								    <td>
+								   	<span style="font-weight:bold;">Dear $nameTo,</span>	 
+								    <br/><br/>
+								    $message
+								    <br/><br/>
+								   	The details are on the below table:
+								    </td>
+								  </tr>
+							  </tbody>
+						</table>
+					</td>
+				</tr>
+				
+				
+<!-- 				<tr> -->
+<!-- 					<td style="font-weight:bold; padding-top: 5px; padding-left: 10px; padding-right: 10px;"> -->
+<!-- 					Link Detail -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td align="left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;"> -->
+<!-- 						<table style="width: 100%; border:1px solid #CCCCCC; border-collapse: collapse;  font-size:11px; color:#323232;" > -->
+<!-- 							<thead> -->
+<!-- 							  <tr bgcolor='#EAF6FF' style=' font-weight:bold'> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px;">Designation</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px; ">Technology</th> -->
+<!-- 							     <th style="border:1px solid #CCCCCC; padding: 3px;">NE 1</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px;">Port</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px;">NE 2</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px; ">Port</th> -->
+<!-- 							  </tr> -->
+<!-- 							 </thead> -->
+<!-- 							 <tbody> -->
+<!-- 								  <tr >  -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name link</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 1 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 1</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 2 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 2</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr >  -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name link</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 1 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 1</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 2 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 2</td> -->
+<!-- 								  </tr> -->
+<!-- 							  </tbody> -->
+<!-- 						</table> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td style='font-weight:bold; padding-top: 10px;'> -->
+<!-- 					Equipment Detail -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td align="left" style="padding-top: 5px; padding-bottom: 5px"> -->
+<!-- 						<table style="width: 100%; border:1px solid #CCCCCC; border-collapse: collapse; font-size:11px; color:#323232;" > -->
+<!-- 							<thead> -->
+<!-- 							  <tr bgcolor='#EAF6FF' style=' font-weight:bold'> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px;">Designation</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px; ">Technology</th> -->
+<!-- 							     <th style="border:1px solid #CCCCCC; padding: 3px;">NE 1</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px;">Port</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px;">NE 2</th> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px; ">Port</th> -->
+<!-- 							  </tr> -->
+<!-- 							 </thead> -->
+<!-- 							 <tbody> -->
+<!-- 								  <tr >  -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name link</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 1 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 1</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 2 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 2</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr >  -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name link</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 1 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 1</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">equip 2 name</td> -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">port 2</td> -->
+<!-- 								  </tr> -->
+<!-- 							  </tbody> -->
+<!-- 						</table> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+				
+<!-- 				<tr> -->
+<!-- 					<td style='font-weight:bold; padding-top: 10px;'> -->
+<!-- 					Equipment Detail -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td align="left" style="padding-top: 5px; padding-bottom: 5px"> -->
+<!-- 						<table style="width: 100%; border:1px solid #CCCCCC; border-collapse: collapse; font-size:11px; color:#323232;" > -->
+<!-- 							<thead> -->
+<!-- 							  <tr  bgcolor='#EAF6FF' style='width:150px; font-weight:bold'> -->
+<!-- 							    <th style="border:1px solid #CCCCCC; padding: 3px;">Designation</th> -->
+							  
+<!-- 							  </tr> -->
+<!-- 							 </thead> -->
+<!-- 							 <tbody> -->
+<!-- 								  <tr >  -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name link</td> -->
+								   
+<!-- 								  </tr> -->
+<!-- 								  <tr >  -->
+<!-- 								    <td style="border:1px solid #CCCCCC; padding: 4px;">name link</td> -->
+		
+<!-- 								  </tr> -->
+<!-- 							  </tbody> -->
+<!-- 						</table> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td style='font-weight:bold; padding-top: 10px; padding-left: 10px; padding-right: 10px;'> -->
+<!-- 					Event Detail -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+				<tr>
+					<td valign="top" align="left" style="padding: 10px;">
+						<table style="width: 100%; border:1px solid #CCCCCC; border-collapse: collapse; font-size:12px; color:#323232;" >
+							<tbody>
+								#set ($counter = 0)
+								#if ($rhShift.rhType)
+									
+									#if ( ($counter % 2) == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td style="border: 1px solid #cccccc; font-weight: bold; padding: 4px ; width: 160px">Type session:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhType.name</td>
+									</tr>
+								#end
+
+								#if ($rhShift.rhStatus)
+									#set ($counter = $counter + 1)
+									#if ( ($counter % 2) == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Status:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhStatus.name</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.rhPerson  )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Staff:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhPerson.fullname</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.rhPersonMng )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Manager:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhPersonMng.fullname</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.dateStart )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Start date/time:</td>
+										#if ( $rhShift.dateStartShift )
+											<td style="border: 1px solid #cccccc; padding: 4px">$date.format('yyyy/MM/dd hh:mm', $rhShift.dateStartShift)</td>
+										#else
+											<td style="border: 1px solid #cccccc; padding: 4px">$date.format('yyyy/MM/dd hh:mm', $rhShift.dateStart)</td>
+										#end
+									</tr>
+								#end
+								
+								#if ( $rhShift.dateFinish )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">End date/time:</td>
+										#if ( $rhShift.dateFinishShift )
+											<td style="border: 1px solid #cccccc; padding: 4px">$date.format('yyyy/MM/dd hh:mm', $rhShift.dateFinishShift)</td>
+										#else
+											<td style="border: 1px solid #cccccc; padding: 4px">$date.format('yyyy/MM/dd hh:mm', $rhShift.dateFinish)</td>
+										#end
+									</tr>
+								#end
+								
+								#if ( $rhShift.rhShiftPeriod )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Period:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhShiftPeriod.label</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.rhTypePerm )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Sub type:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhTypePerm.name</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.sisRegion )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Region:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhTypePerm.name	</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.rhTypeCharge )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Type Charge:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.rhTypeCharge.name</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.reason )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Reason:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.reason</td>
+									</tr>
+								#end
+								
+								#if ( $rhShift.response )
+									#set ($counter = $counter + 1)
+									#if ( $counter % 2 == 0)
+										<tr style="background-color: #EAF6FF">
+									#else
+										<tr>
+									#end
+										<td width="160px" style="border: 1px solid #cccccc; font-weight: bold; padding: 4px">Response:</td>
+										<td style="border: 1px solid #cccccc; padding: 4px">$rhShift.response</td>
+									</tr>
+								#end
+								
+							
+							</tbody>
+						</table>
+					</td>
+				</tr>
+		        <tr>
+					<td style=" text-align: left;font-weight: bold; padding: 10px;" >
+					    <a href="https://appmanager.thradex.com/ThradexApp2" class="blink" target="_blank">Click to go to AppManager2.</a>
+		                <br/><br/>
+					</td>
+				</tr>
+				<tr style="border-top: #ABCA58 2px solid;">
+					<td style=" text-align: center;font-weight: bold; padding: 10px;" >
+						Copyright 2015 THRADEX &amp; TELECOM
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</td>
+		
+	</tr>
+</table>
+
+
+<!-- <div style="border: 1px #000 solid; display: block;"> -->
+<!-- 	<div style="float: left;width: 100px;height: 200PX;border: 1px #000 solid"> -->
+<!-- 	as -->
+<!-- 	</div> -->
+<!-- 	<div style="float: left;width: 100px;height: 200PX;border: 1px #000 solid"> -->
+<!-- 	as -->
+<!-- 	</div> -->
+<!-- 	<div style="float: left;width: 100px;height: 200PX;border: 1px #000 solid"> -->
+<!-- 	as -->
+<!-- 	</div> -->
+<!-- 	<div style="float: left;width: 100px;height: 200PX;border: 1px #000 solid"> -->
+<!-- 	as -->
+<!-- 	</div> -->
+<!-- 	<div style="float: left;width: 100px;height: 200PX;border: 1px #000 solid"> -->
+<!-- 	as -->
+<!-- 	</div> -->
+<!-- 	<div style="float: left;width: 100px;height: 200PX;border: 1px #000 solid"> -->
+	
+<!-- 	</div> -->
+<!-- 	<div style="float: left;width: 100px;height: 200PX;border: 1px #000 solid"> -->
+	
+<!-- 	</div> -->
+<!-- </div> -->
+</body>
+</html>

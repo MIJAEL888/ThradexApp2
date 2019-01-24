@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+<div class="page-wrapper">
+
+<!--BEGIN HEADER-->
+<header th:replace="headerTemplate :: mainHeader"> </header>
+<!--END HEADER-->
+
+<!--BEGIN WRAPPER-->
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!--BEGIN SIDEBAR-->
+	<aside th:replace="menuTemplate :: mainMenuBar"></aside>
+	<!--END SIDERBAR-->
+
+	<!--BEGIN CONTENT-->
+	<div class="content">
+
+	<section class="main-content">
+		
+		<div class="row">
+			<div class="col-md-12">
+			<div class="panel white">
+                <div class="panel-heading"><h3 class="panel-title">User Simulation</h3>
+                    <div class="actions">
+                            <a href="javascript:;" onclick="togglePanel(this,'#panel-body-session')" class="test "><i class="ion-chevron-down"></i></a>
+<!--                             <a href="javascript:;" onclick="updatePanelSession('#panel-body-session')"><i class="ion-refresh"></i></a> -->
+                    </div>
+                </div>
+                <div class="panel-body bg-white" id="panel-body-session">
+                	<script>
+                	function lisArea(val){
+                		 $.ajax({
+                			 url:"../user/loadArea?idCom="+val,
+                			 success: function(result){
+//                 				 alert(result);
+                				$('#area').attr("disabled", false);    
+                				$('#pers').attr("disabled", true); 
+                				 $("#pers").val(0);
+                		        $("#area").html(result);
+                		     }});
+                	}
+                	
+                	function lsPers(val){
+                		 $.ajax({
+                			 url:"../user/loadPerson",
+                			 type:"POST",
+                			 data: $("#area").serialize(),
+                			 success: function(result){
+//                 				 alert(result);
+                				$("#pers").html(result);
+                			   if(result!=""){
+                				 $('#pers').attr("disabled", false);                		         
+                			   }else{
+                				   $('#pers').attr("disabled", true);
+                			   }
+                		     }});
+                	}
+                	
+                	function loadUse(val){
+                		 $.ajax({
+                			 url:"../user/loadUser?idPer="+val,
+                			 success: function(result){
+//                 				 alert(result);
+                				$("#fuse").html(result);                			  
+                		     }});
+                	}
+                	</script>
+                	<table class="table table-bordered table-responsive"  width="200px">
+					  <tbody>					    
+					    <tr>
+					      <td rowspan="4">Select</td>
+					      <td>
+					      	<select class="form-control" id="company" onchange="lisArea(this.value)">
+					      	 <option value="0">-- SELECT AN OPTION --</option>
+							 <option th:each="company : ${lsCompany}" 
+							          th:value="${company.id}" 
+							          th:text="${company.name}">Staff 1</option>
+							</select>					      	
+					      </td>					      
+					    </tr>
+					    <tr>
+					      <td>
+					      	<select class="form-control" id="area" name="area" onchange="lsPers(this.value)" disabled="disabled" th:fragment="lisArea">
+					      	 <option value="0">-- SELECT AN OPTION --</option>
+							 <option th:each="area : ${lisArea}" th:value="${area.id}" th:text="${area.descripcion}">My item</option>
+							</select>
+					      </td>
+					    </tr>
+					    <tr>
+					      <td>
+					      	<select class="form-control" id="pers" disabled="disabled" onchange="loadUse(this.value)" th:fragment="lisPerson">
+					      	 <option value="0">-- SELECT AN OPTION --</option>
+							 <option  th:each="person : ${lisPerson}" th:value="${person.id}" th:text="${person.name}+' '+${person.surname}">items</option>
+							</select>
+							<div th:fragment="idUser" id="fuse">
+							 <input type="hidden" id="uset" th:value="${idUser}"/>
+							</div>
+					      </td>
+					    </tr>
+					    <tr>
+					     <td><button type="button" data-dismiss="modal" class="btn white" onclick="simulation(1)">Start</button></td>
+					    </tr>
+					  </tbody>
+					</table>
+                	
+                	
+                	
+                	 
+<!--                 	<div th:replace="html/rrhh/shift/process :: processShifts('false')"></div> -->
+                </div>
+            </div>
+            </div>
+		</div>
+		
+		
+	</section>
+	</div>
+	<!--END CONTENT-->
+</div>
+<!--END WRAPPER-->
+
+ </div>
+ </div>
+ 
+ <div th:replace="scriptTemplate :: rrhhScripts(shift.js)"></div>
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(extraHour.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(permission.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(scale.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(schedJob.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(abroadJob.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(license.js)"></div> -->
+<!-- <div th:replace="scriptTemplate :: rrhhOneScript(commission.js)"></div> -->
+
+<script>
+function simulation(iduser){
+	if($("#pers").val()==0){
+		alert("Failed to select a user");
+	}else{
+	 window.location.href = "../user/simulationNew?idUser="+$("#uset").val();
+    }
+}
+</script>
+
+
+</body>
+</html>

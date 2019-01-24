@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+</head>
+<body>
+	<div th:fragment="loadingModal">
+	<!-- Modal Start here-->
+	<div class="modal fade bs-example-modal-sm max-level" id="loading" 
+	    role="dialog" aria-hidden="true" data-backdrop="static">
+	    <div class="modal-dialog modal-sm">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h4 class="modal-title">
+	                    <span class="glyphicon glyphicon-time">
+	                    </span>Please Wait
+	                 </h4>
+	            </div>
+	            <div class="modal-body">
+	                <div class="progress">
+	                    <div class="progress-bar progress-bar-info
+	                    progress-bar-striped active"
+	                    style="width: 100%">
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- Modal ends Here -->
+	</div>
+	
+	<div th:fragment="modalInformation">
+	<div id="modal-info" role="dialog" aria-labelledby="myModalLabel"
+    data-backdrop="static" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Information Content</h4></div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" id="modal-info-body"> 
+                   		<p>Ajax content loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn white">Close</button>
+            </div>
+        </div>
+	    </div>
+	</div>
+	</div>
+	
+	
+	
+	
+	
+
+</body>
+</html>
+

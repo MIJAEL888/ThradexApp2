@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head>
+</head>
+<body>
+
+<form  th:fragment="formJustifShift" id="formJustifShift" class="form-horizontal" action="#" 
+       	enctype="multipart/form-data" th:action="@{/shiftScale/justificate}" 
+       	th:object="${formShift}" 
+       	method="post">
+	<div class="form-group">
+		<label class="col-md-3 control-label">Person:</label>
+       	<div class="col-md-9">
+       	<p class="form-control-static" th:text="*{rhPerson.fullname}"> hector.gibson31@example.com</p>
+       	</div>
+     </div>
+     <div class="form-group">
+		<label class="col-md-3 control-label">Type Alert:</label>
+       	<div class="col-md-9">
+       	<p class="form-control-static" th:text="*{rhTypePerm.name}"> hector.gibson31@example.com</p>
+       	</div>
+     </div>
+    <div class="form-group">
+		<label class="col-md-3 control-label">Start Time:</label>
+       	<div class="col-md-9">
+       	<p class="form-control-static"  th:text="${#calendars.format(formShift.dateStart,'dd/MM/yyy HH:mm')}"></p>
+       	</div>
+     </div>
+     <div class="form-group">
+		<label class="col-md-3 control-label">Register Start Time:</label>
+       	<div class="col-md-9">
+       	<p class="form-control-static"  th:text="${#calendars.format(formShift.dateFinish,'dd/MM/yyy HH:mm')}"></p>
+       	</div>
+     </div>
+     <div class="form-group">
+		<label class="col-md-3 control-label">Gap minutes:</label>
+       	<div class="col-md-9"><p class="form-control-static" th:text="*{duration} + ' min.'"></p></div>
+     </div>
+     <div class="form-group">
+		<label class="col-md-3 control-label">Attach Files</label>
+		<div class="col-md-9">
+			<input id="inputFiles" th:field="*{files}" type="file" multiple="multiple" placeholder="Select files..."
+			data-show-preview="false" data-show-upload="false" />
+		</div>
+	</div>       
+     <div class="form-group">
+    	 <label class="col-md-3 control-label">Reason:</label>
+         <div class="col-md-9">
+            <textarea 
+            	placeholder="Detail the reason." rows="5"
+              class="form-control"
+              th:field="*{reason}"></textarea>
+         </div>
+     </div>
+     <div class="form-group">
+ 	 	<div class="col-md-3">	</div>
+         <div class="col-md-9">
+         	<button type="submit" class="btn btn-primary">Submit</button>
+       	</div>
+     </div>
+</form>
+
+<form  th:fragment="formProcess" id="formShiftAlert" class="form-horizontal" action="#" 
+          	enctype="multipart/form-data" th:action="@{/shiftScale/proceessAlert}" 
+          	th:object="${formShiftAlert}" 
+          	method="post">
+	<div class="form-group">
+			<label class="col-md-3 control-label">Person:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static" th:text="${formShiftAlert.rhPerson.fullname}"> hector.gibson31@example.com</p>
+        	</div>
+     </div>
+     <div class="form-group">
+			<label class="col-md-3 control-label">Type Alert:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static" th:text="${formShiftAlert.rhTypePerm.name}"> hector.gibson31@example.com</p>
+        	</div>
+     </div>
+     <div class="form-group">
+			<label class="col-md-3 control-label">Start Date:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static"  th:text="${#calendars.format(formShiftAlert.dateStart,'dd/MM/yyy HH:mm')}"></p>
+        	</div>
+     </div>
+     
+  	<div class="form-group">
+			<label class="col-md-3 control-label">Finish Date:</label>
+        	<div class="col-md-9">
+        	<p class="form-control-static"  th:text="${#calendars.format(formShiftAlert.dateFinish,'dd/MM/yyy HH:mm')}"></p>
+        	</div>
+     </div>
+            
+     <div class="form-group">
+			<label class="col-md-3 control-label">Reason:</label>
+        	<div class="col-md-9"><p class="form-control-static" th:text="*{reason}"></p></div>
+     </div>
+     <div class="form-group">
+			<label class="col-md-3 control-label">Files:</label>
+        	<div class="col-md-9"> 
+        		<a  th:each="rhFile : ${formShiftAlert.rhFiles}" 
+                th:text="${rhFile.nameFile}" th:href="@{'/shift/download/' + ${rhFile.id}}" ></a>
+           </div>
+     </div>
+                   
+     <div class="form-group">
+     	<label class="col-md-3 control-label">Approve?</label>
+         <div class="col-md-9">
+         	<div class="radio-inline">
+             	<label><input type="radio" value="false" 
+             		th:field="*{approved}" />NO</label>
+             </div>
+             <div class="radio-inline">
+             	<label><input type="radio" value="true" 
+                    th:field="*{approved}" onclick="checkCharge(this)"/>YES</label>
+             </div>
+         </div>
+     </div>
+     
+<!--      <div class="form-group" > -->
+<!--      	<label class="col-md-3 control-label">Charge type:</label> -->
+<!--          <div class="col-md-9"> -->
+<!--          	<div class="radio-inline"> -->
+<!--              	<label><input type="radio" disabled="disabled" -->
+<!--                   	value="false" th:field="*{toPay}"/>COMPENSATE</label> -->
+<!--              </div> -->
+<!--              <div class="radio-inline"> -->
+<!--              	<label><input type="radio" disabled="disabled" -->
+<!--                     value="true" th:field="*{toPay}"/>TO PAY</label> -->
+<!--              </div> -->
+             
+<!--          </div> -->
+<!--      </div> -->
+     
+     <div class="form-group">
+    	 	<label class="col-md-3 control-label">Comment:</label>
+         <div class="col-md-9">
+            <textarea 
+            	placeholder="Detail the reason." rows="5"
+              class="form-control"
+              th:field="*{response}"></textarea>
+         </div>
+   	</div>
+     <div class="form-group">
+ 	 	<div class="col-md-3">	</div>
+         <div class="col-md-9">
+         	<button type="submit" class="btn btn-primary">Submit</button>
+       	</div>
+     </div>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	lang="en">
+	
+<head th:include="headTemplate :: rrhhHead(cssName = 'default.css')">
+</head>
+<body class="page-header-fixed page-sidebar-fixed">
+<div>
+    <div class="page-wrapper">
+    	<!--BEGIN HEADER-->
+       	<header th:replace="headerTemplate :: mainHeader" >
+       	</header>
+        <!--END HEADER-->
+         
+        <!--END HORIZONTAL SIDEBAR--><!--BEGIN WRAPPER-->
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+        	<!--BEGIN SIDEBAR-->
+          <aside  th:replace="menuTemplate :: mainMenuBar">
+           </aside>
+            <!--END SIDERBAR-->
+            
+            <!--BEGIN CONTENT-->
+            <div class="content">
+<!--                 <section class="content-header"> -->
+<!--                     <h1 class="pull-left">Sift Registration  -->
+<!--                         <small>Shift Reg...</small> -->
+<!--                     </h1> -->
+<!--                     <div class="pull-right"> -->
+<!--                         <ol class="breadcrumb"> -->
+<!--                             <li><a href="#">Rrhh</a></li> -->
+<!--                             <li class="active">Shift </li> -->
+<!--                         </ol> -->
+<!--                     </div> -->
+<!--                 </section> -->
+                <section class="main-content">
+                <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel">
+                                <div class="panel-heading"><h3 class="panel-title"><strong
+                                        class="text-uppercase text-success">Draggable Events</strong></h3></div>
+                                <div class="panel-body">
+                                    <div id="external-events">
+                                    	 <div id="accordion2" class="panel-group accordion">
+	                                       <div th:each="rhSchedulePerson,status : ${listPerson}" class="panel panel-primary">
+                                            <div class="panel-heading">
+	                                            <h5 class="panel-title">
+		                                            <a data-toggle="collapse"
+	                                                   data-parent="#accordion2"
+	                                                   th:href="${'#collapseOne' + status.count}"
+	                                                   class="accordion-toggle collapsed">
+	                                                   <i class="icon-arrow"></i>
+	                                                   <span th:text="${rhSchedulePerson.rhPerson.shortname + ' - ' + rhSchedulePerson.rhPerson.fullname}">SN - Full Name </span></a>
+		                                         </h5>
+	                                         </div>
+                                            <div th:id="${'collapseOne' + status.count}" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                	 <div id="event-block">
+			                                            <div th:each="rhScheduleDay : ${rhSchedulePerson.rhScheduleDays}" style="position: relative;"
+			                                                 class="external-event text-white ui-draggable" >
+			                                                <span th:text="${rhSchedulePerson.rhPerson.shortname + 
+			                                                '(' + rhScheduleDay.startTime + ' - ' + rhScheduleDay.endTime + ')'}">Schedule Day - 1 </span>
+			                                                <input type="hidden" class="color" th:value="${rhScheduleDay.color}"/>
+															<input type="hidden" class="idPerson" th:value="${rhSchedulePerson.rhPerson.id}"/>
+															<input type="hidden" class="idScale" th:value="${rhScheduleDay.id}"/>
+															<input type="hidden" class="startTime" th:value="${rhScheduleDay.startTime}"/>
+															<input type="hidden" class="duration" th:value="${rhScheduleDay.duration}"/>
+			                                            </div>
+			                                        </div>
+                                                </div>
+                                            </div>
+	                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div id="calendar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!--END CONTENT-->	
+        </div>
+        <!--END WRAPPER-->
+        </div>
+</div>
+ <div th:include="modalTemplate :: loadingModal"></div>
+ <div th:include="modalTemplate :: modalInformation"></div>
+ <div th:include="scriptTemplate :: rrhhScripts(scale.js)"></div>
+ 
+</body>
+</html>

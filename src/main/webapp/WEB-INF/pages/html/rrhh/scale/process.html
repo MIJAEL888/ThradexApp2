@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head>
+</head>
+<body>
+<div th:fragment="messageStart">
+	<div class="row">
+		<div class="col-md-12" th:if="${formShift.validate == 1}">
+			<h4>You register a session with no errors...</h4>
+			<p>Please click on close button</p>
+		</div>	
+		<div class="col-md-12" th:if="${formShift.validate == 2}">
+			<h4>
+				<strong class="text-uppercase text-danger">You have an alert.</strong>
+			</h4>
+	<!-- 		<label>Please write down a justification</label> -->
+			<div th:replace="html/rrhh/scale/forms :: formJustifShift"></div>
+		</div>	
+	<!-- 	<div class="col-md-12" th:if="${formShift.validate == 3}"> -->
+	<!-- 		<h4>You have an absent alert.</h4> -->
+	<!-- 		<div th:replace="html/rrhh/scale/forms :: formJustifShift"></div> -->
+	<!-- 	</div>	 -->
+	</div>
+</div>
+
+<div th:fragment="formProcess">
+	<div class="row">
+		<div class="col-md-12">
+			<div th:replace="html/rrhh/scale/forms :: formProcess"></div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="formAlert">
+	<div class="row">
+		<div class="col-md-12">
+			<div th:replace="html/rrhh/scale/forms :: formJustifShift"></div>
+		</div>
+	</div>
+</div>
+
+<div th:fragment="messageFinish">
+
+</div>
+<div th:fragment="justAlert">
+	<form action=""></form>
+	<h4>You have an alert</h4>
+	<label>Please write down a justification</label>
+	<label>Start Time: </label>
+	<p>Please click on the accept button</p>
+	<button type="button">Submit Justification</button>
+</div>
+
+<div th:fragment="modalProcess" id="process-scale" role="dialog" aria-labelledby="myModalLabel"
+    data-backdrop="static" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Shift Information...</h4></div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" id="divProcess"> 
+                   <p>Ajax content loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn white">Close</button>
+<!--                 <button type="button" class="btn btn-primary">Submit</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="processAlert" id="process-alert" role="dialog" aria-labelledby="myModalLabel"
+    data-backdrop="static" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Process Shift Alert</h4></div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" id="divProcess"> 
+                  		<p>Ajax content loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn white">Close</button>
+<!--                 <button type="button" onclick="submit('#formShiftAlert')" class="btn btn-primary">Submit</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

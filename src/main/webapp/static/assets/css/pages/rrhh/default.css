@@ -1,0 +1,56 @@
+@import "../../../../global/plugins/font-awesome/css/font-awesome.min.css";
+@import "../../../../global/plugins/ionicons/css/ionicons.min.css";
+@import "../../../../global/plugins/simple-line-icons/simple-line-icons.css";
+@import "../../../../global/plugins/animate.css/animate.css";
+@import "../../../../global/plugins/iCheck/skins/all.css";
+@import "../../../../global/css/style.css";
+
+@import "../../../plugins/jquery-datatables/media/css/dataTables.bootstrap.min.css";
+@import "../../../plugins/jquery-datatables/extensions/Responsive/css/responsive.bootstrap.min.css";
+
+@import "../../../plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css";
+@import "../../../plugins/form-validator/css/formValidation.min.css";
+@import "../../../plugins/bootstrap-slider/css/bootstrap-slider.min.css";
+@import "../../../plugins/bootstrap-file-input/fileinput.min.css";
+@import "../../../plugins/fullcalendar/fullcalendar-custom.css";
+
+@import "../../../css/style-admin.css";
+@import "../../../css/page-demo.css";
+@import "../../../css/style-plugins.css";
+@import "../../../css/style-responsive.css";
+
+@import "../../../css/themes/default.css";
+
+@import "../../../css/style.css";
+
+.slider-horizontal{
+	margin-bottom: -10px !important;
+	margin-left: 20px !important;
+}
+
+.td-limit {
+    max-width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.input-group-btn .btn-default{
+	background-color: #fff !important;
+}
+
+@keyframes mymove {
+	0% {
+	    opacity: 1;
+	    text-shadow: none;
+	}
+	50% {
+	    opacity: 0;
+	    text-shadow: none;
+	}
+	100% {
+	    opacity: 1;
+	    text-shadow: none;
+	}
+}

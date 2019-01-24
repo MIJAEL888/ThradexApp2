@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:fragment="mainHead">
+	<title>AppManager2 | Thradex</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta content="AppManager V2.0" name="description"/>
+	<meta content="Mijael Palomino" name="author"/>
+	<link type="text/css" rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'/>
+	<link type="image/x-icon" th:href="@{/static/global/images/logo.ico}" rel="shortcut icon"/>
+	<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400italic,400,300,700" />
+	<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Squada+One" />
+</head>
+
+<head th:fragment="dashboardHead" >
+	<title>AppManager2 | Thradex</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta content="AppManager V2.0" name="description"/>
+	<meta content="Mijael Palomino" name="author"/>
+	<link type="text/css" rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'/>
+	<link type="image/x-icon" th:href="@{/static/global/images/logo.ico}" rel="shortcut icon"/>
+	<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400italic,400,300,700" />
+	<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Squada+One" />
+ 	<link type="text/css" rel="stylesheet" th:href="@{/static/assets/css/pages/dashboard.css}" />
+</head>
+
+<head th:fragment="rrhhHead(cssName)">
+ 	<title>AppManager2 | Thradex</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta content="AppManager V2.0" name="description"/>
+	<meta content="Mijael Palomino" name="author"/>
+	<link type="text/css" rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'/>
+	<link type="image/x-icon" th:href="@{/static/global/images/logo.ico}" rel="shortcut icon"/>
+	<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400italic,400,300,700" />
+	<link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Squada+One" />
+	<link type="text/css" rel="stylesheet" th:href="@{/static/assets/css/pages/rrhh/}+${cssName}" />
+	
+</head>
+
+<head th:fragment="schedJobHead" th:include="this :: mainHead">
+ <link type="text/css" rel="stylesheet" th:href="@{/static/assets/css/pages/rrhh/schedJob.css}" />
+</head>
+
+<head th:fragment="permissionHead" th:include="this :: mainHead">
+ <link type="text/css" rel="stylesheet" th:href="@{/static/assets/css/pages/rrhh/permission.css}" />
+</head>
+<head th:fragment="extraHourHead" th:include="this :: mainHead">
+ <link type="text/css" rel="stylesheet" th:href="@{/static/assets/css/pages/rrhh/extraHour.css}" />
+</head>
+<body>
+
+</body>
+</html>
+

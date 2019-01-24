@@ -1,0 +1,13 @@
+@import "../../../global/plugins/font-awesome/css/font-awesome.min.css";
+@import "../../../global/plugins/ionicons/css/ionicons.min.css";
+@import "../../../global/plugins/simple-line-icons/simple-line-icons.css";
+@import "../../../global/plugins/animate.css/animate.css";
+@import "../../../global/plugins/iCheck/skins/all.css";
+@import "../../../global/css/style.css";
+
+
+@import "../../css/style-admin.css";
+@import "../../css/style-plugins.css";
+@import "../../css/style-responsive.css";
+@import "../../css/themes/default.css";
+

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head >
+</head>
+<body>
+<div th:fragment="detailDl">
+	
+	<dl class="dl-horizontal">
+<!-- 		<dt>Id</dt> -->
+<!-- 		<dd th:text="${rhExtraHour.id}"></dd> -->
+		<dt>Start date/time</dt>
+		<dd th:text="${#calendars.format(rhExtraHour.dateStart,'dd/MM/yyy HH:mm')}"></dd>
+		<dt>Finish date/time</dt>
+		<dd th:text="${#calendars.format(rhExtraHour.dateFinish,'dd/MM/yyy HH:mm')}"></dd>
+		<dt>Duration</dt>
+		<dd th:text="${rhExtraHour.duration} + ' min.'"></dd>
+		<dt>Manager</dt>
+		<dd th:text="${rhExtraHour.rhPersonMng.fullname}"></dd>
+		<dt>Status</dt>
+		<dd th:text="${rhExtraHour.rhStatus.name}"></dd>
+		<dt>Reason</dt>
+		<dd th:text="${rhExtraHour.reason}"></dd>
+  	</dl>
+  	
+</div>
+
+<div th:fragment="detailTable">
+<div class="col-md-10">
+	<table class="table table-hover mbn">
+		<tbody>
+<!-- 			<tr th:if="${rhExtraHour.rhType != null}"> -->
+<!--              	<td class="col-md-3"><strong>Type session</strong></td> -->
+<!--                 <td th:text="${rhExtraHour.rhType.name}"></td> -->
+<!--             </tr> -->
+            <tr th:if="${rhExtraHour.rhStatus != null}">
+             	<td><strong>Status</strong></td>
+                <td th:text="${rhExtraHour.rhStatus.name}"></td>
+            </tr>
+<!--             <tr th:if="${rhExtraHour.rhPerson != null}"> -->
+<!--              	<td class="col-md-3"><strong>Staff</strong></td> -->
+<!--                 <td th:text="${rhExtraHour.rhPerson.fullname}"></td> -->
+<!--             </tr> -->
+<!--             <tr th:if="${rhExtraHour.rhPersonMng != null}"> -->
+<!--              	<td class="col-md-3"><strong>Manager</strong></td> -->
+<!--                 <td th:text="${rhExtraHour.rhPersonMng.fullname}"></td> -->
+<!--             </tr> -->
+            <tr th:if="${rhExtraHour.dateReg != null}">
+             	<td><strong>Register date/time</strong></td>
+                <td th:text="${#calendars.format(rhExtraHour.dateReg,'dd/MM/yyyy HH:mm')}"></td>
+            </tr>
+            <tr th:if="${rhExtraHour.dateStart != null}">
+             	<td><strong>Start date/time</strong></td>
+                <td th:text="${#calendars.format(rhExtraHour.dateStart,'dd/MM/yyyy HH:mm')}"></td>
+            </tr>
+            <tr th:if="${rhExtraHour.dateFinish != null}">
+             	<td><strong>Finish date/time</strong></td>
+                <td th:text="${#calendars.format(rhExtraHour.dateFinish,'dd/MM/yyyy HH:mm')}"></td>
+            </tr>
+<!--              <tr th:if="${rhExtraHour.dateStartShift != null}"> -->
+<!--              	<td><strong>Register Start date/time</strong></td> -->
+<!--                 <td th:text="${#calendars.format(rhExtraHour.dateStartShift,'dd/MM/yyyy HH:mm')}"></td> -->
+<!--             </tr> -->
+<!--             <tr th:if="${rhExtraHour.dateFinishShift != null}"> -->
+<!--              	<td><strong>Register Finish date/time</strong></td> -->
+<!--                 <td th:text="${#calendars.format(rhExtraHour.dateFinishShift,'dd/MM/yyyy HH:mm')}"></td> -->
+<!--             </tr> -->
+             <tr th:if="${rhExtraHour.rhShiftPeriod != null}">
+             	<td><strong>Period</strong></td>
+                <td th:text="${rhExtraHour.rhShiftPeriod.label}">
+                </td>
+            </tr>
+            <tr th:if="${rhExtraHour.rhTypePerm != null}">
+             	<td><strong>Sub Type</strong></td>
+                <td th:text="${rhExtraHour.rhTypePerm.name}"></td>
+            </tr>
+            <tr th:if="${rhExtraHour.sisRegion != null}">
+             	<td><strong>Region</strong></td>
+                <td th:text="${rhExtraHour.sisRegion.name}"></td>
+            </tr> 
+            <tr th:if="${rhExtraHour.rhTypeCharge != null}">
+             	<td><strong>Charge Type</strong></td>
+                <td th:text="${rhExtraHour.rhTypeCharge.name}"></td>
+            </tr>
+            <tr th:if="${rhExtraHour.reason != null}">
+             	<td><strong>Reason</strong></td>
+                <td th:text="${rhExtraHour.reason}"></td>
+            </tr>
+            <tr th:if="${rhExtraHour.response != null}">
+             	<td><strong>Response</strong></td>
+                <td th:text="${rhExtraHour.response}"></td>
+            </tr>
+            <tr th:if="${rhExtraHour.comment != null}">
+             	<td><strong>Comment</strong></td>
+                <td th:text="${rhExtraHour.comment}"></td>
+            </tr>
+             <tr th:if="${rhExtraHour.rhFiles != null}">
+             	<td><strong>File</strong></td>
+                <td>
+                	<a  th:each="rhFile : ${rhExtraHour.rhFiles}" 
+                		th:text="${rhFile.nameFile}" th:href="@{'/shift/download/' + ${rhFile.id}}" ></a>
+                </td>
+            </tr>
+            <tr th:if="${rhExtraHour.rhShiftDetails != null}">
+             	<td> <strong>Process Detail</strong></td>
+             	<td >
+             		<table class="table table-hover mbn" >
+					   	<thead class="bg-default">
+						     <tr>
+						      	<th>Session</th>
+						         <th>Type</th>
+						         <th>Start Date</th>
+						         <th>Finish Date</th>
+						         <th>Rate</th>
+						         <th>Total</th>
+						     </tr>
+						</thead>
+						<tbody>
+						 	<tr th:each="shiftDetail : ${rhExtraHour.rhShiftDetails }" th:id="${shiftDetail.id}">
+					        	<td th:text="${shiftDetail.rhShift.rhType.name}">text 1</td>
+					            <td th:text="${shiftDetail.rhType != null} ? ${shiftDetail.rhType.name} : '-'">text 1</td>
+					            <td th:text="${#calendars.format(shiftDetail.timeStart,'dd/MM HH:mm')}">text 1</td>
+					            <td th:text="${#calendars.format(shiftDetail.timeFinish,'dd/MM HH:mm')}">text 1</td>
+					            <td th:text="${shiftDetail.rhTypeRate.name}">text 1</td>
+					            <td th:text="${shiftDetail.totalRate}">text 1</td>
+					        </tr>
+					    </tbody>
+					 </table>
+             	</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

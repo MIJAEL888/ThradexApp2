@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head >
+</head>
+<body>
+<div th:fragment="activeSessions">
+<div class="row">
+	<div class="col-md-12">
+		<p>Active sessions on your area:</p>
+
+	<table id="datatablesSession" class="table table-hover table-bordered mbn">
+    	<thead class="bg-default">
+            <tr>
+             	<th class="sorting_disabled"></th>
+                <th>Staff</th>
+                <th>Start Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr th:each="actSesssion : ${activeSession}" th:id="${actSesssion.id}">
+            	<td class="details-control"></td>
+                <td th:text="${actSesssion.rhPerson.fullname}">text 1</td>
+                <td th:text="${#calendars.format(actSesssion.dateStartShift,'dd/MM/yyy HH:mm')}">text 1</td>
+                <td th:text="${actSesssion.rhStatus != null} ? ${actSesssion.rhStatus.name} : '-'">text 1</td>
+                <td><a th:if="${actSesssion.rhType.code == 1}"  href="#"
+                	th:onclick="'javascript:finishScale(\''+ ${actSesssion.id} +'\');'"
+                 	class="btn btn-primary btn-sm">Close</a>
+                 	<a th:if="${actSesssion.rhType.code == 2}"  href="#"
+                	th:onclick="'javascript:finishScheduleJob(\''+ ${actSesssion.id} +'\');'"
+                 	class="btn btn-primary btn-sm">Close</a>
+                 	</td>
+                 	
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<div th:fragment="mainTable">
+	<table id="datatables" class="table table-hover table-bordered mbn">
+    	<thead class="bg-default">
+            <tr>
+             	<th class="sorting_disabled"></th>
+                <th>Name</th>
+<!--                 <th>Reason</th> -->
+                <th>Start Date</th>
+                <th>Duration</th>
+                <th>Manager</th>
+                <th>Status</th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr th:each="rhExtraHour : ${listExtraHour}" th:id="${rhExtraHour.id}">
+            	<td class="details-control"></td>
+                <td th:text="${rhExtraHour.rhPerson.fullname}">text 1</td>
+<!--                 <td th:text="${rhExtraHour.reason}" class="td-limit">text 1</td> -->
+                <td th:text="${#calendars.format(rhExtraHour.dateStart,'dd/MM/yyy HH:mm')}">text 1</td>
+                <td th:text="${rhExtraHour.duration} + ' min.'">text 1</td>
+                <td th:text="${rhExtraHour.rhPersonMng.fullname}">text 1</td>
+                <td th:text="${rhExtraHour.rhStatus != null} ? ${rhExtraHour.rhStatus.name} : '-'">text 1</td>
+                 
+            </tr>
+        </tbody>
+    </table>
+    
+    
+</div>
+
+<div th:fragment="processTable">
+	
+	<table id="datatables" class="table table-hover mbn">
+    	<thead class="bg-default">
+            <tr>
+             	<th></th>
+                <th>Name</th>
+<!--                 <th>Reason</th> -->
+                <th>Start Date</th>
+                <th>Duration</th>
+                <th>Manager</th>
+                <th>Status</th>
+                 <th sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">
+                	Action
+                </th>
+            </tr>
+		</thead>
+		<tbody>
+            <tr th:each="rhExtraHour : ${listExtraHour}" th:id="${rhExtraHour.id}">
+            	<td class="details-control"></td>
+                <td th:text="${rhExtraHour.rhPerson.fullname}">text 1</td>
+<!--                 <td th:text="${rhExtraHour.reason}" class="td-limit">text 1</td> -->
+                <td th:text="${#calendars.format(rhExtraHour.dateStart,'dd/MM/yyy HH:mm')}">text 1</td>
+                <td th:text="${rhExtraHour.duration} + ' min.'">text 1</td>
+                <td th:text="${rhExtraHour.rhPersonMng.fullname}">text 1</td>
+                <td th:text="${rhExtraHour.rhStatus != null} ? ${rhExtraHour.rhStatus.name} : '-'">text 1</td>
+                <td sec:authorize="hasAnyRole('ROLE_SH_ADMIN','ROLE_SH_MNGR')">
+                	<button type="button" class="btn btn-primary btn-xs" 
+                	th:onclick="'javascript:processRequest(\'' + ${rhExtraHour.id} + '\');'">Process</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
