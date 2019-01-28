@@ -26,8 +26,9 @@ public class GlobalExceptionController {
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleAllException(Exception ex) {
 		ex.printStackTrace();
-		ModelAndView model = new ModelAndView("html/error/generic_error");
-		model.addObject("errMsg", "this is Exception.class");
+		ModelAndView model = new ModelAndView("html/error/genericError");
+		model.addObject("errCode", ex.getClass());
+		model.addObject("errMsg", ex.getMessage());
 		return model;
 	}
 

@@ -13,41 +13,41 @@ import org.thradex.model.ValorCosto;
 
 public interface ShiftReportService {
 	
-	public List<RhCompany> listRhCompanies();
+	List<RhCompany> listRhCompanies();
 	
-	public List<Map<String, Object>> listMapRhShiftPeriods(int idRhCompany);
+	List<Map<String, Object>> listMapRhShiftPeriods(int idRhCompany);
 	
-	public List<Map<String, Object>> listMapRhPerson(int idRhCompany);
+	List<Map<String, Object>> listMapRhPerson(int idRhCompany);
 	
-	public List<RhShift> listPending(Integer idPerido, Integer idPerson, RhPerson rhPersonMng);
+	List<RhShift> listPending(Integer idPerido, Integer idPerson, RhPerson rhPersonMng);
 	
-	public List<RhShift> listProcessed( Integer idPerido, Integer idPerson, RhPerson rhPersonMng);
+	List<RhShift> listProcessed( Integer idPerido, Integer idPerson, RhPerson rhPersonMng);
 	
-	public List<RhShiftDetail> listShiftDetail(Integer idPeriod, Integer idPerson, RhPerson rhPersonMng);
+	List<RhShiftDetail> listShiftDetail(Integer idPeriod, Integer idPerson, RhPerson rhPersonMng);
 	
-	public List<RhPerson> listRhPerson(RhPerson rhPerson);
+	List<RhPerson> listRhPerson(RhPerson rhPerson);
 	
-	public List<RhShiftPeriod> listRhShiftPeriods(int idRhCompany);
+	List<RhShiftPeriod> listRhShiftPeriods(int idRhCompany);
 	
-	public List<RhPerson> listRhPerson(int idRhCompany);
+	List<RhPerson> listRhPerson(int idRhCompany);
 
-	public List<RhShift> listAllActive(RhPerson rhPerson);
+	List<RhShift> listAllActive(RhPerson rhPerson);
 	
-	public List<RhShift> listAllPlanned(RhPerson rhPerson);
+	List<RhShift> listAllPlanned(RhPerson rhPerson);
 	
-	public List<RhPerson> listShiftSummary(Integer idPeriod, RhPerson rhPersonMng);
+	List<RhPerson> listShiftSummary(Integer idPeriod, RhPerson rhPersonMng);
 	
-	public void exportReportShift(int idRhPeriod);
+	void exportReportShift(int idRhPeriod);
 	
-	public void exportReportShiftDetail(int idRhPeriod);
+	void exportReportShiftDetail(int idRhPeriod);
 	
-	public void exportReportShiftDetailOne(int idRhPeriod);
+	void exportReportShiftDetailOne(int idRhPeriod);
 	
-	public void exportReportShiftDetailOne2(int idRhPeriod);
+	void exportReportShiftDetailOne2(int idRhPeriod);
 	
-	public void exportReportShift2(int idRhPeriod);
+	void exportReportShift2(int idRhPeriod);
 	
-	public List<EvenUsuario> listEvenUsuario();
+	List<EvenUsuario> listEvenUsuario();
 	
-	public List<ValorCosto> lisValorCosto();
+	List<ValorCosto> lisValorCosto();
 }

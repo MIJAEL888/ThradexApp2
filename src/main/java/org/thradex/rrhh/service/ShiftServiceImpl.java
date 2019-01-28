@@ -435,6 +435,12 @@ public class ShiftServiceImpl implements ShiftService {
 		listRhShift = addVariables(listRhShift);
 		return shiftDetailService.addDetail(listRhShift);
 	}
+
+	@Override
+	public List<RhShift> listShiftProcessed(RhPerson rhPerson, RhShiftPeriod rhShiftPeriod) {
+		RhStatus rhStatusSisProcessed = statusDAO.getRhStatus("SH_SIS_STATUS", 3);
+		return shiftDAO.listBySisProcess(rhPerson, rhStatusSisProcessed, rhShiftPeriod);
+	}
 	
 //	public List<RhShift> listSession(RhPerson rhPerson){
 //		List<RhShift> listRhShift =  new ArrayList<RhShift>();
@@ -456,7 +462,7 @@ public class ShiftServiceImpl implements ShiftService {
 	@Override
 	public List<RhShiftDetail> listShitDetail(int option, RhPerson rhPerson){
 		List<RhShiftDetail> rhShiftDetails =  new ArrayList<>();
-		RhShiftPeriod rhShiftPeriodCurrent = shiftPerioDAO.get(rhPerson.getRhCompany(), 
+		RhShiftPeriod rhShiftPeriodCurrent = shiftPerioDAO.get(rhPerson.getRhCompany(),
 				statusDAO.getRhStatus("SH_PERIOD", 1));
 		switch (option) {
 			case 1: // worked time

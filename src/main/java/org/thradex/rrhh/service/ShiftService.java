@@ -11,35 +11,36 @@ import org.thradex.model.RhShiftPeriod;
 
 public interface ShiftService {
 	
-	public RhShift getRhShift(int idRhShift);
+	RhShift getRhShift(int idRhShift);
 	
-	public List<RhShift> listShiftActive(RhPerson rhPerson);
+	List<RhShift> listShiftActive(RhPerson rhPerson);
 	
-	public List<RhShift> listShiftPlanned(RhPerson rhPerson);
-	public List<RhShift> listShiftClosed(RhPerson rhPerson,RhShiftPeriod rhPeriodo);
-	public void shiftChildDelete(int rhShift) ;
-	public void updateShiftRever(int rhShift);
+	List<RhShift> listShiftPlanned(RhPerson rhPerson);
+	List<RhShift> listShiftClosed(RhPerson rhPerson, RhShiftPeriod rhShiftPeriod);
+	void shiftChildDelete(int rhShift) ;
+	void updateShiftRever(int rhShift);
 	
 	
-	public List<RhShift> listShiftPending(RhPerson rhPerson);
+	List<RhShift> listShiftPending(RhPerson rhPerson);
 	
-	public List<RhShift> listShiftProcessed(RhPerson rhPerson);
+	List<RhShift> listShiftProcessed(RhPerson rhPerson);
+	List<RhShift> listShiftProcessed(RhPerson rhPerson, RhShiftPeriod rhShiftPeriod);
+
+	RhFile getRhFile(int idRhFile);
 	
-	public RhFile getRhFile(int idRhFile);
+	Map<String, Object> getMapDetail(RhPerson rhPerson);
 	
-	public Map<String, Object> getMapDetail(RhPerson rhPerson);
+	List<RhShiftDetail> listShitDetail(int option, RhPerson rhPerson);
 	
-	public List<RhShiftDetail> listShitDetail(int option, RhPerson rhPerson);
+//	List<RhShift> listSession(RhPerson rhPerson);
 	
-//	public List<RhShift> listSession(RhPerson rhPerson);
+	void updateResponsible();
 	
-	public void updateResponsible();
+	void updateTypeCharge();
 	
-	public void updateTypeCharge();
+	void updateDayDetail();
 	
-	public void updateDayDetail();
+	void updateDetail();
 	
-	public void updateDetail();
-	
-	public void updateDetail2();
+	void updateDetail2();
 }

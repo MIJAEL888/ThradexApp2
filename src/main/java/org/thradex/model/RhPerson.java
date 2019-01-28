@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.thradex.dto.ShiftReport;
 
 import java.util.Date;
 import java.util.List;
@@ -126,9 +127,20 @@ public class RhPerson implements Serializable {
 	
 	@Transient
 	private RhShiftPeriod rhShiftPeriod;
+
+	@Transient
+	private List<ShiftReport> listShiftReport;
 	
 	public RhPerson() {
 	
+	}
+
+	public List<ShiftReport> getListShiftReport() {
+		return listShiftReport;
+	}
+
+	public void setListShiftReport(List<ShiftReport> listShiftReport) {
+		this.listShiftReport = listShiftReport;
 	}
 
 	public Map<String, Object> getDetail() {

@@ -1,6 +1,10 @@
 package org.thradex.rrhh.service;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Minutes;
 import org.springframework.transaction.annotation.Transactional;
+import org.thradex.dto.ShiftReport;
 import org.thradex.model.EvenUsuario;
 import org.thradex.model.RhCompany;
 import org.thradex.model.RhPerson;
@@ -22,11 +26,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.jxls.area.XlsArea;
@@ -40,6 +42,7 @@ import org.jxls.util.JxlsHelper;
 import org.jxls.util.TransformerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thradex.util.RhEnum;
 
 
 @Service
@@ -74,6 +77,9 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 
 	@Autowired
 	private UtilRrhhService utilRrhhService;
+
+	@Autowired
+	private ShiftService shiftService;
 	
 	/*
 	 * METHODS FOR THE SHIFT REPORT
@@ -381,13 +387,14 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 	
 	public void exportReportShiftDetail(int idRhPeriod){
 		RhShiftPeriod rhShiftPeriod = shiftPeriodService.get(idRhPeriod);
-		List<RhPerson> rhPersons = listRhPerson(rhShiftPeriod.getRhCompany().getId());
-		RhStatus rhStatusSisProcessed = statusDAO.getRhStatus("SH_SIS_STATUS", 3);
+		List<RhPerson> listRhPerson = listRhPerson(rhShiftPeriod.getRhCompany().getId());
+		//RhStatus rhStatusSisProcessed = statusDAO.getRhStatus("SH_SIS_STATUS", 3);
 		
-		for (RhPerson rhPerson2 : rhPersons) {
-			List<RhShiftDetail> rhShiftDetails = shiftDetailService.list(rhPerson2, rhShiftPeriod, rhStatusSisProcessed);
-			rhPerson2.setRhShiftDetails(rhShiftDetails);
-			rhPerson2.setRhShiftPeriod(rhShiftPeriod);
+		for (RhPerson rhPerson : listRhPerson) {
+ 			//List<RhShiftDetail> rhShiftDetails = shiftDetailService.list(rhPerson, rhShiftPeriod, rhStatusSisProcessed);
+ 			rhPerson.setListShiftReport(getListShitReport(shiftService.listShiftProcessed(rhPerson, rhShiftPeriod)));
+			//rhPerson.setRhShiftDetails(rhShiftDetails);
+			rhPerson.setRhShiftPeriod(rhShiftPeriod);
 		}
 		try (InputStream is = ShiftReportServiceImpl.class.getClassLoader().getResourceAsStream("templateShiftDetail.xls")) {
             try (OutputStream os = new FileOutputStream(PropertiesSis.PATH_SHIFT_REPORT + "shiftDetailed.xls")) {
@@ -396,11 +403,11 @@ public class ShiftReportServiceImpl implements ShiftReportService {
                  XlsArea personArea = new XlsArea("Template!A1:K10", transformer);
                  EachCommand personEachCommand = new EachCommand("person", "persons", personArea, new SimpleCellRefGenerator());
                  XlsArea shiftArea = new XlsArea("Template!A9:K9", transformer);
-                 Command shiftEachCommand = new EachCommand("shiftDetail", "person.rhShiftDetails", shiftArea);
+                 Command shiftEachCommand = new EachCommand("shiftDetail", "person.listShiftReport", shiftArea);
                  personArea.addCommand(new AreaRef("Template!A9:K9"), shiftEachCommand);
                  xlsArea.addCommand(new AreaRef("Template!A9:K10"), personEachCommand);
             	 Context context = new Context();
-                 context.putVar("persons", rhPersons);
+                 context.putVar("persons", listRhPerson);
                  xlsArea.applyAt(new CellRef(xlsArea.getStartCellRef().getCellName()), context);
                  transformer.deleteSheet("Template");
                  transformer.write();
@@ -412,8 +419,48 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 		}
 	  
 	}
-	
-	
+
+	private List<ShiftReport> getListShitReport(List<RhShift> rhShiftList){
+		List<ShiftReport> shiftReportList = new ArrayList<>();
+		int count = 0;
+		for (RhShift rhShift:rhShiftList)
+			if (rhShift.getRhTypeCharge().getName() == RhEnum.TypeCharge.WORKED_TIME.toString()) {
+				count++;
+				ShiftReport shiftReport = new ShiftReport();
+				shiftReport.setTimeStart(rhShift.getDateStartShift());
+				shiftReport.setTimeFinish(rhShift.getDateFinishShift());
+				//if (rhShift.getRhType().getName() == RhEnum.TypeShift.ABSENT_ALL_DAY.toString())
+				shiftReport.setWorkedMinutes(
+						(double) Minutes.minutesBetween(
+								new DateTime(rhShift.getDateStartShift()),
+								new DateTime(rhShift.getDateFinishShift())
+						).getMinutes()
+				);
+				shiftReport.setDay(DayOfWeek.of(new DateTime(rhShift.getDateStartShift()).getDayOfWeek()).getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+				shiftReport.setStatus(rhShift.getRhType().getName());
+				shiftReport.setOrder(count);
+				shiftReport.setDiscountMinutes(getMinutesCharge(rhShiftList, rhShift.getRhShiftParent().getId(), RhEnum.TypeCharge.DISCOUNT_TIME.toString()));
+				shiftReport.setAdditionalMinutes(getMinutesCharge(rhShiftList, rhShift.getRhShiftParent().getId(), RhEnum.TypeCharge.EXTRA_TIME.toString()));
+				shiftReport.setCompensationMinutes(getMinutesCharge(rhShiftList, rhShift.getRhShiftParent().getId(), RhEnum.TypeCharge.COMPENSATION_TIME.toString()));
+				shiftReport.setTotalMinutes(shiftReport.getWorkedMinutes() + shiftReport.getAdditionalMinutes() - shiftReport.getDiscountMinutes());
+				shiftReportList.add(shiftReport);
+			}
+		return shiftReportList;
+	}
+
+	private double getMinutesCharge(List<RhShift> rhShiftList, int idParent, String typeCharge){
+		double totalMinutes = 0D;
+		for (RhShift rhShift:rhShiftList){
+			if (rhShift.getRhShiftParent().getId() == idParent && rhShift.getRhTypeCharge().getName() == typeCharge){
+				totalMinutes =(double) Minutes.minutesBetween(
+						new DateTime(rhShift.getDateStartShift()),
+						new DateTime(rhShift.getDateFinishShift())
+					).getMinutes();
+			}
+		}
+		return totalMinutes;
+	}
+
 	public void exportReportShiftDetailOne(int idRhPeriod){
 		
 		RhShiftPeriod rhShiftPeriod = shiftPeriodService.get(idRhPeriod);
