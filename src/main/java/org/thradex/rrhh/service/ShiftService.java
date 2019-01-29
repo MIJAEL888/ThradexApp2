@@ -22,7 +22,7 @@ public interface ShiftService {
 	
 	
 	List<RhShift> listShiftPending(RhPerson rhPerson);
-	
+	List<RhShift> listShiftPending(RhPerson rhPerson, RhShiftPeriod rhShiftPeriod);
 	List<RhShift> listShiftProcessed(RhPerson rhPerson);
 	List<RhShift> listShiftProcessed(RhPerson rhPerson, RhShiftPeriod rhShiftPeriod);
 

@@ -20,6 +20,6 @@ public class ShiftReportServiceTest {
 
     @Test
     public void exportReportShiftDetail() {
-        shiftReportService.exportReportShiftDetail(9);
+        shiftReportService.exportReportShiftDetail(62);
     }
 }

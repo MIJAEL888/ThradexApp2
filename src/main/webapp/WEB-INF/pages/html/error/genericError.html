@@ -10,7 +10,9 @@
     <meta content="Mijael Palomino" name="author"/>
 </head>
 <body>
-    <h2 th:if="${errMsg!= null}" th:text="${errCode}"> System error </h2>
-    <h2 th:if="${errMsg!= null}" th:text="${errMsg}"> Error Message </h2>
+    <h2>Lo sentimos hubo un problema en el proceso </h2>
+    <h3 th:if="${errCode!= null}" th:text="${errCode}" style="color: red"> System error </h3>
+    <h3 th:if="${errMsg!= null}" th:text="${errMsg}" style="color: red"> Error Message </h3>
+    <a href="/shift/getPage">Volver a Home</a>
 </body>
 </html>

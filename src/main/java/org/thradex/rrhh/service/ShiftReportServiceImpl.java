@@ -384,7 +384,6 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 	  
 	}
 	
-	
 	public void exportReportShiftDetail(int idRhPeriod){
 		RhShiftPeriod rhShiftPeriod = shiftPeriodService.get(idRhPeriod);
 		List<RhPerson> listRhPerson = listRhPerson(rhShiftPeriod.getRhCompany().getId());
@@ -392,7 +391,7 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 		
 		for (RhPerson rhPerson : listRhPerson) {
  			//List<RhShiftDetail> rhShiftDetails = shiftDetailService.list(rhPerson, rhShiftPeriod, rhStatusSisProcessed);
- 			rhPerson.setListShiftReport(getListShitReport(shiftService.listShiftProcessed(rhPerson, rhShiftPeriod)));
+ 			rhPerson.setListShiftReport(getListShitReport(getListRhShift(rhPerson, rhShiftPeriod)));
 			//rhPerson.setRhShiftDetails(rhShiftDetails);
 			rhPerson.setRhShiftPeriod(rhShiftPeriod);
 		}
@@ -420,11 +419,18 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 	  
 	}
 
+	private List<RhShift> getListRhShift(RhPerson rhPerson, RhShiftPeriod rhShiftPeriod){
+        List<RhShift> rhShiftList = new ArrayList<>();
+        rhShiftList.addAll(shiftService.listShiftProcessed(rhPerson, rhShiftPeriod));
+        rhShiftList.addAll(shiftService.listShiftPending(rhPerson, rhShiftPeriod));
+        return rhShiftList;
+    }
 	private List<ShiftReport> getListShitReport(List<RhShift> rhShiftList){
 		List<ShiftReport> shiftReportList = new ArrayList<>();
 		int count = 0;
 		for (RhShift rhShift:rhShiftList)
-			if (rhShift.getRhTypeCharge().getName() == RhEnum.TypeCharge.WORKED_TIME.toString()) {
+			if (rhShift.getRhTypeCharge() != null &&
+					rhShift.getRhTypeCharge().getName().equals(RhEnum.TypeCharge.WORKED_TIME.toString())) {
 				count++;
 				ShiftReport shiftReport = new ShiftReport();
 				shiftReport.setTimeStart(rhShift.getDateStartShift());
@@ -439,19 +445,22 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 				shiftReport.setDay(DayOfWeek.of(new DateTime(rhShift.getDateStartShift()).getDayOfWeek()).getDisplayName(TextStyle.FULL, Locale.ENGLISH));
 				shiftReport.setStatus(rhShift.getRhType().getName());
 				shiftReport.setOrder(count);
-				shiftReport.setDiscountMinutes(getMinutesCharge(rhShiftList, rhShift.getRhShiftParent().getId(), RhEnum.TypeCharge.DISCOUNT_TIME.toString()));
-				shiftReport.setAdditionalMinutes(getMinutesCharge(rhShiftList, rhShift.getRhShiftParent().getId(), RhEnum.TypeCharge.EXTRA_TIME.toString()));
-				shiftReport.setCompensationMinutes(getMinutesCharge(rhShiftList, rhShift.getRhShiftParent().getId(), RhEnum.TypeCharge.COMPENSATION_TIME.toString()));
+				shiftReport.setDiscountMinutes(getMinutesCharge(rhShiftList, rhShift, RhEnum.TypeCharge.DISCOUNT_TIME.toString()));
+				shiftReport.setAdditionalMinutes(getMinutesCharge(rhShiftList, rhShift, RhEnum.TypeCharge.EXTRA_TIME.toString()));
+				shiftReport.setCompensationMinutes(getMinutesCharge(rhShiftList, rhShift, RhEnum.TypeCharge.COMPENSATION_TIME.toString()));
 				shiftReport.setTotalMinutes(shiftReport.getWorkedMinutes() + shiftReport.getAdditionalMinutes() - shiftReport.getDiscountMinutes());
 				shiftReportList.add(shiftReport);
 			}
 		return shiftReportList;
 	}
 
-	private double getMinutesCharge(List<RhShift> rhShiftList, int idParent, String typeCharge){
+	private double getMinutesCharge(List<RhShift> rhShiftList, RhShift rhShiftParent, String typeCharge){
 		double totalMinutes = 0D;
 		for (RhShift rhShift:rhShiftList){
-			if (rhShift.getRhShiftParent().getId() == idParent && rhShift.getRhTypeCharge().getName() == typeCharge){
+			if (rhShiftParent != null &&
+                    rhShift.getRhShiftParent() != null &&
+                    rhShift.getRhShiftParent().getId() == rhShiftParent.getId() &&
+                    rhShift.getRhTypeCharge().getName().equals(typeCharge)){
 				totalMinutes =(double) Minutes.minutesBetween(
 						new DateTime(rhShift.getDateStartShift()),
 						new DateTime(rhShift.getDateFinishShift())
