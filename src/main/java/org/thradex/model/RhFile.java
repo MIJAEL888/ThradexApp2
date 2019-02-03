@@ -22,7 +22,7 @@ public class RhFile implements Serializable {
 	@Column(name="RELATIVE_PATH")
 	private String relativePath;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="ID_RH_SHIFT")
 	private RhShift rhShift;
 	
