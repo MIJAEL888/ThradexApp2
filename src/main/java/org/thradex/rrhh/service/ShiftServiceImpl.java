@@ -420,7 +420,11 @@ public class ShiftServiceImpl implements ShiftService {
 		listRhShift = addVariables(listRhShift);
 		return listRhShift;
 	}
-	
+	@Override
+	public List<RhShift> listShiftPending(RhPerson rhPerson, RhShiftPeriod rhShiftPeriod) {
+		RhStatus rhStatusSisPending = statusDAO.getRhStatus("SH_SIS_STATUS", 1);
+		return shiftDAO.listBySisProcess(rhPerson, rhStatusSisPending, rhShiftPeriod);
+	}
 	
 	@Override
 	public List<RhShift> listShiftProcessed(RhPerson rhPerson) {

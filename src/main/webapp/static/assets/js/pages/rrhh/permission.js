@@ -42,7 +42,7 @@ function validateFormPermission(){
 		format: 'DD/MM/YYYY HH:mm',
     	stepping: 5,
     	sideBySide: true,
-    	minDate: moment().add(1, 'days'),
+    	minDate: moment(),
     	maxDate: moment().add(60, 'days')
 	});
 	
