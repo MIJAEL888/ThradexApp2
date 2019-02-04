@@ -209,6 +209,7 @@ public class ShiftDetailServiceImpl implements ShiftDetailService{
 					dateTimeFinish,
 					false);
 		}
+
 	}
 	
 	public void processPeDiscount(RhShift rhShift, boolean takenBreak){

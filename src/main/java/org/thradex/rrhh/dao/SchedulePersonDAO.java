@@ -9,16 +9,16 @@ import org.thradex.model.RhType;
 
 public interface SchedulePersonDAO {
 	
-	public RhSchedulePerson get(RhPerson rhPerson);
+	RhSchedulePerson get(RhPerson rhPerson);
 	
-	public List<RhSchedulePerson> list(RhStatus rhStatus, RhType rhTypeSch);
+	List<RhSchedulePerson> list(RhStatus rhStatus, RhType rhTypeSch);
 	
-	public RhSchedulePerson get(RhPerson rhPerson, RhStatus rhStatus);
+	RhSchedulePerson get(RhPerson rhPerson, RhStatus rhStatus);
 	
-	public RhSchedulePerson get(RhPerson rhPerson, RhStatus rhStatus, RhType rhTypeSch);
+	RhSchedulePerson get(RhPerson rhPerson, RhStatus rhStatus, RhType rhTypeSch);
 	
-	public void update(RhSchedulePerson rhSchedulePerson);
+	void update(RhSchedulePerson rhSchedulePerson);
 	
-	public RhSchedulePerson save(RhSchedulePerson rhSchedulePerson);
+	RhSchedulePerson save(RhSchedulePerson rhSchedulePerson);
 	
 }

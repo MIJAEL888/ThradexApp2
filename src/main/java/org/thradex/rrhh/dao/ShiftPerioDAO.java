@@ -10,17 +10,19 @@ import org.thradex.model.RhType;
 
 public interface ShiftPerioDAO {
 	
-	public RhShiftPeriod get(Date date, RhCompany rhCompany, RhStatus rhStatus, RhType rhType);
+	RhShiftPeriod get(Date date, RhCompany rhCompany, RhStatus rhStatus, RhType rhType);
 	
-	public RhShiftPeriod getLimit(Date date, RhCompany rhCompany);
+	RhShiftPeriod getLimit(Date date, RhCompany rhCompany);
 	
-	public RhShiftPeriod get(Date date, RhCompany rhCompany);
+	RhShiftPeriod get(Date date, RhCompany rhCompany);
 	
-	public RhShiftPeriod get(int id);
+	RhShiftPeriod get(int id);
 	
-	public List<RhShiftPeriod> list(RhCompany rhCompany, RhStatus rhStatus);
+	List<RhShiftPeriod> list(RhCompany rhCompany, RhStatus rhStatus);
+
+	List<RhShiftPeriod> list(RhCompany rhCompany);
 	
-	public RhShiftPeriod get(RhCompany rhCompany, RhStatus rhStatus);
+	RhShiftPeriod get(RhCompany rhCompany, RhStatus rhStatus);
 	
-	public void update(RhShiftPeriod rhShiftPeriod);
+	void update(RhShiftPeriod rhShiftPeriod);
 }

@@ -233,7 +233,7 @@ function processLicenseValid(){
         .on('ifChanged', function(e) {
             // Get the field name
             var field = $(this).attr('name');
-            $('#formProcessLicense').formValidation('revalidateField', field);
+            //$('#formProcessLicense').formValidation('revalidateField', field);
         })
         .end();
 }

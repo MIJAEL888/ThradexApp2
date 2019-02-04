@@ -225,7 +225,7 @@ function processPermissionValid(){
         .on('ifChanged', function(e) {
             // Get the field name
             var field = $(this).attr('name');
-            $('#formProcessPermission').formValidation('revalidateField', field);
+            //$('#formProcessPermission').formValidation('revalidateField', field);
         })
         .end();
 }

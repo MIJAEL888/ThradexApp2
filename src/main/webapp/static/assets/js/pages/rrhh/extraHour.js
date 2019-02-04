@@ -191,7 +191,7 @@ function processExtraHourValid(){
  	        }
             // Get the field name
             var field = $(this).attr('name');
-            $('#formProcessExtraHour').formValidation('revalidateField', field);
+            //$('#formProcessExtraHour').formValidation('revalidateField', field);
         })
         .end();
 }

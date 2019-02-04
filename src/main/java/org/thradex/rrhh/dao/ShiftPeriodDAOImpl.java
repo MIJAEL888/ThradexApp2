@@ -99,7 +99,17 @@ public class ShiftPeriodDAOImpl implements ShiftPerioDAO {
 				.list();
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	public List<RhShiftPeriod> list(RhCompany rhCompany) {
+		// TODO Auto-generated method stub
+		return openSession()
+				.createQuery("FROM RhShiftPeriod rp WHERE "
+						+ " rp.rhCompany.id = :idRhCompany " +
+						" ORDER BY  rp.dateStart DESC ")
+				.setParameter("idRhCompany", rhCompany.getId())
+				.list();
+	}
+
 	public void update(RhShiftPeriod rhShiftPeriod) {
 		openSession().update(rhShiftPeriod);
 	}

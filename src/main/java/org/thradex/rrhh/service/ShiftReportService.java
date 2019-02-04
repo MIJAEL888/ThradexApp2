@@ -28,6 +28,8 @@ public interface ShiftReportService {
 	List<RhPerson> listRhPerson(RhPerson rhPerson);
 	
 	List<RhShiftPeriod> listRhShiftPeriods(int idRhCompany);
+
+	List<RhShiftPeriod> listRhShiftPeriods2(int idRhCompany);
 	
 	List<RhPerson> listRhPerson(int idRhCompany);
 
