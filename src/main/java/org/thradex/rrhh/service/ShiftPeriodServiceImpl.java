@@ -63,8 +63,11 @@ public class ShiftPeriodServiceImpl implements ShiftPeriodService {
 	public List<RhShiftPeriod> list(RhCompany rhCompany, RhStatus rhStatus){
 		return shiftPerioDAO.list(rhCompany, rhStatus);
 	}
-	
-	
+
+	public List<RhShiftPeriod> list(RhCompany rhCompany){
+		return shiftPerioDAO.list(rhCompany);
+	}
+
 	public void updatePeriod(){
 		Date date = utilRrhhService.getNowDate();
 		DateTime dateNow = new DateTime(date);

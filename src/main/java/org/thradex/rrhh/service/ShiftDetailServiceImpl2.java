@@ -208,6 +208,14 @@ public class ShiftDetailServiceImpl2 implements ShiftDetailService2 {
 				dateTimeFinish,
 				total, 
 				pTotal);
+
+		if(rhShift.getRhTypeCharge().getCode() == 3){//CONPENSATION
+			RhSchedulePerson rhSchedulePerson = schedulePersonDAO.get(rhShift.getRhPerson());
+			int poolCompensation = rhSchedulePerson.getCompensation();
+			poolCompensation += pTotal ;
+			rhSchedulePerson.setCompensation(poolCompensation);
+			schedulePersonDAO.update(rhSchedulePerson);
+		}
 	}
 	
 	public void processPeDiscount(RhShift rhShift, boolean takenBreak){
@@ -226,7 +234,7 @@ public class ShiftDetailServiceImpl2 implements ShiftDetailService2 {
 		if(rhShift.getRhTypeCharge().getCode() == 4){//DECONPENSATION
 			RhSchedulePerson rhSchedulePerson = schedulePersonDAO.get(rhShift.getRhPerson());
 			int poolCompensation = rhSchedulePerson.getCompensation();
-			poolCompensation = poolCompensation - rhShiftDetail.getTotalRate();
+			poolCompensation -= rhShiftDetail.getTotalRate();
 			rhSchedulePerson.setCompensation(poolCompensation);
 			schedulePersonDAO.update(rhSchedulePerson);
 		}

@@ -220,7 +220,11 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 		rhShiftPeriods.addAll(shiftPeriodService.list(rhCompany, rhStatus3));
 		return rhShiftPeriods;
 	}
-	
+
+	public List<RhShiftPeriod> listRhShiftPeriods2(int idRhCompany){
+		RhCompany rhCompany = companyDAO.get(idRhCompany);
+		return shiftPeriodService.list(rhCompany);
+	}
 	
 	public List<RhPerson> listRhPerson(RhPerson rhPerson){
 		List<RhPerson> rhPersons = personService.list(rhPerson);
@@ -237,10 +241,10 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 	
 	
 	public List<Map<String, Object>> listMapRhShiftPeriods(int idRhCompany){
-		List<RhShiftPeriod> rhShiftPeriods = listRhShiftPeriods(idRhCompany);
-		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+		List<RhShiftPeriod> rhShiftPeriods = listRhShiftPeriods2(idRhCompany);
+		List<Map<String, Object>> listMap = new ArrayList<>();
 		for (RhShiftPeriod rhShiftPeriod : rhShiftPeriods) {
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new HashMap<>();
 			map.put("id", rhShiftPeriod.getId());
 			map.put("label", rhShiftPeriod.getLabel());
 			listMap.add(map);
@@ -251,9 +255,9 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 	
 	public List<Map<String, Object>> listMapRhPerson(int idRhCompany){
 		List<RhPerson> rhPersons = listRhPerson(idRhCompany);
-		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> listMap = new ArrayList<>();
 		for (RhPerson rhPerson : rhPersons) {
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new HashMap<>();
 			map.put("id", rhPerson.getId());
 			map.put("label", rhPerson.getFullname());
 			listMap.add(map);
@@ -448,7 +452,7 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 				shiftReport.setDiscountMinutes(getMinutesCharge(rhShiftList, rhShift, RhEnum.TypeCharge.DISCOUNT_TIME.toString()));
 				shiftReport.setAdditionalMinutes(getMinutesCharge(rhShiftList, rhShift, RhEnum.TypeCharge.EXTRA_TIME.toString()));
 				shiftReport.setCompensationMinutes(getMinutesCharge(rhShiftList, rhShift, RhEnum.TypeCharge.COMPENSATION_TIME.toString()));
-				shiftReport.setTotalMinutes(shiftReport.getWorkedMinutes() + shiftReport.getAdditionalMinutes() - shiftReport.getDiscountMinutes());
+				shiftReport.setTotalMinutes(shiftReport.getWorkedMinutes() + shiftReport.getAdditionalMinutes());
 				shiftReportList.add(shiftReport);
 			}
 		return shiftReportList;

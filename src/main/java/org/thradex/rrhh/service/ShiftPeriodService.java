@@ -9,13 +9,15 @@ import org.thradex.model.RhStatus;
 
 public interface ShiftPeriodService {
 	
-	public RhShiftPeriod get(Date date, RhCompany rhCompany);
+	RhShiftPeriod get(Date date, RhCompany rhCompany);
 	
-	public RhShiftPeriod getLimit(Date date, RhCompany rhCompany);
+	RhShiftPeriod getLimit(Date date, RhCompany rhCompany);
 	
-	public void updatePeriod();
+	void updatePeriod();
 	
-	public List<RhShiftPeriod> list(RhCompany rhCompany, RhStatus rhStatus);
+	List<RhShiftPeriod> list(RhCompany rhCompany, RhStatus rhStatus);
+
+	List<RhShiftPeriod> list(RhCompany rhCompany);
 	
-	public RhShiftPeriod get(Integer id);
+	RhShiftPeriod get(Integer id);
 }

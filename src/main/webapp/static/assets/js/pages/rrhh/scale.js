@@ -317,7 +317,7 @@ function validFomrAlert(){
     .on('ifChanged', function(e) {
         // Get the field name
         var field = $(this).attr('name');
-        $('#formShiftAlert').formValidation('revalidateField', field);
+        //$('#formShiftAlert').formValidation('revalidateField', field);
     })
     .end();
 }
