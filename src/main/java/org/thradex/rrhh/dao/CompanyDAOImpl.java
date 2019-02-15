@@ -39,7 +39,8 @@ public class CompanyDAOImpl implements CompanyDAO {
 	@SuppressWarnings("unchecked")
 	public List<RhCompanyType> listType(RhType rhType) {
 		return openSession().createQuery("FROM RhCompanyType rc WHERE "
-				+ " rc.rhType.id = :idRhType ")
+				+ " rc.rhType.id = :idRhType AND "
+				+ " rc.rhCompany.flag = 1")
 				.setParameter("idRhType", rhType.getId())
 				.list();
 	}

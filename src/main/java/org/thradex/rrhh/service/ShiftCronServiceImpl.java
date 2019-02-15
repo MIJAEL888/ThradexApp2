@@ -41,7 +41,7 @@ public class ShiftCronServiceImpl implements ShiftCronService{
 		//shiftService.updateDetail2();
 //		shiftService.updateResponsible();
 //		shiftService.updateTypeCharge();
-		//periodService.updatePeriod();
+		periodService.updatePeriod();
 		//scheduleScaleService.createScale();
 		//scheduleScaleService.checkActiveSessions();
     }

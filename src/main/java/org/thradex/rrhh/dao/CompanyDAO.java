@@ -8,11 +8,11 @@ import org.thradex.model.RhType;
 
 public interface CompanyDAO {
 	
-	public RhCompany get(int id);
+	RhCompany get(int id);
 	
-	public List<RhCompanyType> listType(RhType rhType);
+	List<RhCompanyType> listType(RhType rhType);
 	
-	public List<RhCompany> list(RhType rhType);
+	List<RhCompany> list(RhType rhType);
 	
-	public List<RhCompany> lsCompany();
+	List<RhCompany> lsCompany();
 }
