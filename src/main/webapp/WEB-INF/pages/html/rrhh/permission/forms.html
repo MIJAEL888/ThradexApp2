@@ -11,6 +11,7 @@
                    	th:action="@{/shift/updatePermission}" 
                    	th:object="${formProcessPermission}" 
                    	method="post">
+	<input type="hidden" name="id" value="0" th:value="${formProcessPermission.id}" class="id-hidden"/>
 	<div class="form-group">
 			<label class="col-md-3 control-label">Person:</label>
         	<div class="col-md-9">

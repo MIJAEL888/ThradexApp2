@@ -38,16 +38,15 @@ public class ShiftCronServiceImpl implements ShiftCronService{
     public void onStartup() {
 //		shiftService.updateDayDetail();
 //		shiftService.updateDetail();
-		shiftService.updateDetail2();
+		//shiftService.updateDetail2();
 //		shiftService.updateResponsible();
 //		shiftService.updateTypeCharge();
-		periodService.updatePeriod();
-		scheduleScaleService.createScale();
-		scheduleScaleService.checkActiveSessions();
-		
+		//periodService.updatePeriod();
+		//scheduleScaleService.createScale();
+		//scheduleScaleService.checkActiveSessions();
     }
-	
-	/* 
+
+	/*
 	 * Method run every hour and it checks:
 	 * - All session are close automatic after 5 hours
 	 * - 
@@ -57,11 +56,11 @@ public class ShiftCronServiceImpl implements ShiftCronService{
 	@Scheduled(cron="0 0 * * * ?") //(0 0 * * * ?) second, minute, hour, day of month, month, day(s) of week
 	public void runEveryHour() {
 		//when commission finished we will calculate the compensation time
-		abroadJobService.checkFinish();
-		licenseService.checkFinish();
-		scheduleScaleService.checkActiveSessions();
-		commissionService.checkFinish();
-		permissionService.checkFinish();
+		//abroadJobService.checkFinish();
+		//licenseService.checkFinish();
+		//scheduleScaleService.checkActiveSessions();
+		//commissionService.checkFinish();
+		//permissionService.checkFinish();
 	}
 	
 	/*
@@ -73,9 +72,9 @@ public class ShiftCronServiceImpl implements ShiftCronService{
 	
 	@Scheduled(cron="0 0 2 * * ?") // (0 0 2 * * ?) second, minute, hour, day of month, month, day(s) of week
 	public void runMidNight() {
-		periodService.updatePeriod();
-		scheduleScaleService.createScale();
-		scheduleScaleService.checkAbsentSessions();
+		//periodService.updatePeriod();
+		//scheduleScaleService.createScale();
+		//scheduleScaleService.checkAbsentSessions();
 	}
 	
 }

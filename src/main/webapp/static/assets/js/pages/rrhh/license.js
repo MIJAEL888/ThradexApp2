@@ -212,8 +212,9 @@ function processLicenseValid(){
 	    .on('success.form.fv', function(e) {
 	        // Prevent form submission
 	        e.preventDefault();
-
+            $('#loading').modal('show');
 	        var $form = $(e.target);
+            var id = $form.find("input:hidden").val();
 	        $form.ajaxSubmit({
 	            // You can change the url option to desired target
 //	        	target : '#detailExtraHour',
@@ -221,10 +222,11 @@ function processLicenseValid(){
 	            success: function(responseText, statusText, xhr, $form) {
 	                // Process the response returned by the server ...
 	                // console.log(responseText);
+
 	            	$('#process-license').find(".modal-body").html(responseText);
 	            	$('#process-license').modal('hide');
-	            	updatePanelTable();
-	            	updatePanelTableH();
+	            	$('#loading').modal('hide');
+	            	updateStatusButton(id);
 	            }
 	        });
 	    })

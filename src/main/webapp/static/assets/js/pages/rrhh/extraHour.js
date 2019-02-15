@@ -165,8 +165,9 @@ function processExtraHourValid(){
 	    .on('success.form.fv', function(e) {
 	        // Prevent form submission
 	        e.preventDefault();
-
+            $('#loading').modal('show');
 	        var $form = $(e.target);
+            var id = $form.find("input:hidden").val();
 	        $form.ajaxSubmit({
 	            // You can change the url option to desired target
 //	        	target : '#detailExtraHour',
@@ -175,9 +176,11 @@ function processExtraHourValid(){
 	                // Process the response returned by the server ...
 	                // console.log(responseText);
 	            	$('#process-extra').find(".modal-body").html(responseText);
+                    $('#loading').modal('hide');
 //	            	$('#process-extra').modal('hide');
-	            	updatePanelTable();
-	            	updatePanelTableH();
+					updateStatusButton(id);
+	            	// updatePanelTable();
+	            	// updatePanelTableH();
 	            }
 	        });
 	    })

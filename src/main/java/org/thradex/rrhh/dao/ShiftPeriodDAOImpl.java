@@ -104,7 +104,8 @@ public class ShiftPeriodDAOImpl implements ShiftPerioDAO {
 		// TODO Auto-generated method stub
 		return openSession()
 				.createQuery("FROM RhShiftPeriod rp WHERE "
-						+ " rp.rhCompany.id = :idRhCompany " +
+						+ " rp.rhCompany.id = :idRhCompany AND " +
+						" rp.rhStatus != 32 " +
 						" ORDER BY  rp.dateStart DESC ")
 				.setParameter("idRhCompany", rhCompany.getId())
 				.list();

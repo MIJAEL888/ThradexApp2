@@ -254,6 +254,7 @@ function validFomrJust(){
         $form.find("input:file").each(function() {
             if($(this).val() == "") $(this).remove();
         });
+        var id = $form.find("input:hidden").val();
         $form.ajaxSubmit({
 //        	dataType: 'json',
 //        	target : '#detailModalExtraHour',
@@ -261,8 +262,9 @@ function validFomrJust(){
             success: function(responseText, statusText, xhr, $form) {
             	$("#process-scale").find(".modal-body").html(responseText);
             	$('#loading').modal('hide');
-            	updatePanelTable();
-            	updatePanelTableH();
+            	updateStatusButton(id);
+            	// updatePanelTable();
+            	// updatePanelTableH();
             }
         });
     });
@@ -298,7 +300,8 @@ function validFomrAlert(){
     .on('success.form.fv', function(e) {
         e.preventDefault();
         $('#loading').modal('show');
-        var $form = $(e.target), fv = $form.data('formValidation');;
+        var $form = $(e.target), fv = $form.data('formValidation');
+        var id = $form.find("input:hidden").val();;
         $form.ajaxSubmit({
 //        	dataType: 'json',
 //        	target : '#detailModalExtraHour',
@@ -307,8 +310,9 @@ function validFomrAlert(){
             	$("#process-alert").find(".modal-body").html(responseText);
             	$('#loading').modal('hide');
             	$('#process-alert').modal('hide');
-            	updatePanelTable();
-            	updatePanelTableH();
+            	updateStatusButton(id);
+            	// updatePanelTable();
+            	// updatePanelTableH();
             }
         });
     })

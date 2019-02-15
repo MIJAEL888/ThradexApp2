@@ -11,6 +11,7 @@
        	enctype="multipart/form-data" th:action="@{/shiftScale/justificate}" 
        	th:object="${formShift}" 
        	method="post">
+	<input type="hidden" name="id" value="0" th:value="${formShiftAlert.id}" class="id-hidden"/>
 	<div class="form-group">
 		<label class="col-md-3 control-label">Person:</label>
        	<div class="col-md-9">
@@ -67,6 +68,7 @@
           	enctype="multipart/form-data" th:action="@{/shiftScale/proceessAlert}" 
           	th:object="${formShiftAlert}" 
           	method="post">
+	<input type="hidden" name="id" value="0" th:value="${formShiftAlert.id}" class="id-hidden"/>
 	<div class="form-group">
 			<label class="col-md-3 control-label">Person:</label>
         	<div class="col-md-9">

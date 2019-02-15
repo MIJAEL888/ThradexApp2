@@ -253,7 +253,9 @@ function detailWorked(code){
 		$('#loading').modal('hide');
 	});
 }
-
+function updateStatusButton(id){
+    $("#"+ id +" td:last-child").html("<span class='btn-label'><i class='ion-checkmark-circled'></i> Processed </span>");
+}
 function updatePanelTable(){
 //	alert("update session");
 	blockUI($("#divTabShift"));

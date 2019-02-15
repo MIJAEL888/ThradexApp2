@@ -137,13 +137,15 @@ function validateFormPermission(){
         $form.find("input:file").each(function() {
             if($(this).val() == "") $(this).remove();
         });
+        //var id = $form.find("input:hidden").val();
         $form.ajaxSubmit({
 //        	dataType: 'json',
         	target : '#detailModalPermission',
             url: $form.attr('action'),
             success: function(responseText, statusText, xhr, $form) {
-            	$('#loading').modal('hide');
+            	$('#loading').modal('hide');s
             	validateFormPermission();
+
             	updatePanelTable();
             	updatePanelTableH();
             }
@@ -204,8 +206,9 @@ function processPermissionValid(){
 	    .on('success.form.fv', function(e) {
 	        // Prevent form submission
 	        e.preventDefault();
-
+            $('#loading').modal('show');
 	        var $form = $(e.target);
+            var id = $form.find("input:hidden").val();
 	        $form.ajaxSubmit({
 	            // You can change the url option to desired target
 //	        	target : '#detailExtraHour',
@@ -215,8 +218,10 @@ function processPermissionValid(){
 	                // console.log(responseText);
 	            	$('#process-permission').find(".modal-body").html(responseText);
 	            	$('#process-permission').modal('hide');
-	            	updatePanelTable();
-	            	updatePanelTableH();
+                    $('#loading').modal('hide');
+                    updateStatusButton(id);
+	            	//updatePanelTable();
+	            	// updatePanelTableH();
 	            }
 	        });
 	    })

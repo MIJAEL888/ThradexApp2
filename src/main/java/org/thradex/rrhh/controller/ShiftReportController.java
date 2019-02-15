@@ -55,7 +55,7 @@ public class ShiftReportController {
 		model.addAttribute("formShiftReport", new RhShiftReport());
 		model.addAttribute("formShiftReportRh", new RhShiftReport());
 		model.addAttribute("listCompany", shiftReportService.listRhCompanies());
-		model.addAttribute("listPeriod", shiftReportService.listRhShiftPeriods(user.getRhPerson().getRhCompany().getId()));
+		model.addAttribute("listPeriod", shiftReportService.listMapRhShiftPeriods(user.getRhPerson().getRhCompany().getId()));
 		model.addAttribute("listPerson", shiftReportService.listRhPerson(user.getRhPerson()));
 		model.addAttribute("listActiveShifts", shiftReportService.listAllActive(user.getRhPerson()));
 		model.addAttribute("listPlannedShifts", shiftReportService.listAllPlanned(user.getRhPerson()));
